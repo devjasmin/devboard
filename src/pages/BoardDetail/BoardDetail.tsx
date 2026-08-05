@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { MoveLeftIcon, PencilIcon } from "lucide-react";
 import BoardDetailCard from "./BoardDetailCard";
 import { Link } from "react-router-dom";
+import { Input } from "@/components/ui/input";
 
 function BoardDetail() {
   return (
@@ -18,7 +19,11 @@ function BoardDetail() {
             </Button>
           </Link>
 
-          <h1>Neuer Board name</h1>
+          <Input
+            type="text"
+            placeholder="Neuer Board name"
+            className="w-60"
+          ></Input>
           <Button
             className="hover:text-destructive"
             size="icon"
