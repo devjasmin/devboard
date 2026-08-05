@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { BadgePlus, Trash2 } from "lucide-react";
+import { BadgePlus } from "lucide-react";
 import BoardCard from "./BoardCard";
 
 function BoardOverview() {

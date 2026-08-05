@@ -1,14 +1,33 @@
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardAction,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function BoardCard() {
   return (
-    <Card>
-      <CardTitle>Board</CardTitle>
-      <Trash2 className="h-5 w-5" />
-      <CardDescription>Spalten 3 </CardDescription>
-      <CardDescription>0 Task</CardDescription>
-    </Card>
+    <Link to={`/boards/1`}>
+      <Card className="border transition-shadow hover:shadow-md border-black mb-4">
+        <CardHeader>
+          <CardTitle>Name des Board</CardTitle>
+          <CardDescription className="">Spalten 3 - 0 Task </CardDescription>
+          <CardAction>
+            <Button
+              className="hover:text-destructive"
+              size="icon"
+              variant="ghost"
+            >
+              <Trash2 />
+            </Button>
+          </CardAction>
+        </CardHeader>
+      </Card>
+    </Link>
   );
 }
 
