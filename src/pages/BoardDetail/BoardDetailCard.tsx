@@ -1,5 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { Card, CardAction, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardHeader,
+} from "@/components/ui/card";
 import { Plus } from "lucide-react";
 
 function BoardDetailCard() {
@@ -9,11 +14,19 @@ function BoardDetailCard() {
         <CardHeader>
           ToDo 0
           <CardAction>
-            <Button>
+            <Button
+              className="hover:text-destructive"
+              size="icon"
+              variant="ghost"
+            >
               <Plus />
             </Button>
           </CardAction>
+          <hr className="font-bold" />
         </CardHeader>
+        <CardContent>
+          <p className="text-center mt-2">Keine Tasks vorhanden</p>
+        </CardContent>
       </Card>
     </div>
   );
