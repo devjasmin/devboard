@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MoveLeftIcon, PencilIcon } from "lucide-react";
+import BoardDetailCard from "./BoardDetailCard";
 
 function BoardDetail() {
   return (
@@ -22,6 +23,7 @@ function BoardDetail() {
             <PencilIcon />
           </Button>
         </div>
+        <BoardDetailCard />
       </div>
     </>
   );
