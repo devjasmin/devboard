@@ -10,8 +10,8 @@ import { Plus } from "lucide-react";
 function BoardDetailCard() {
   return (
     <div className="container">
-      <Card className="flex flex-row-2 w-80 h-40 mt-10 ml-10">
-        <CardHeader>
+      <Card className="flex flex-row-2 w-90 h-50 mt-10 ml-10 ">
+        <CardHeader className="border-b my-2">
           ToDo 0
           <CardAction>
             <Button
@@ -22,7 +22,6 @@ function BoardDetailCard() {
               <Plus />
             </Button>
           </CardAction>
-          <hr className="font-bold" />
         </CardHeader>
         <CardContent>
           <p className="text-center mt-2">Keine Tasks vorhanden</p>
