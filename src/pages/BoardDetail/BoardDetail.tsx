@@ -6,13 +6,20 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 
 function BoardDetail() {
-  const [boardName, setBoardName] = useState("Jasmin"); //Jasmin
-  const [editBoardName, setEditBoardName] = useState(""); // Jasmin Bewerbungen
-  const [isEditing, setIsEditing] = useState(false); // kann auch true sein
+  const [boardName, setBoardName] = useState("Jasmin");
+  const [editBoardName, setEditBoardName] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
 
   function handleEditBoardName() {
     setEditBoardName(boardName);
     setIsEditing(true);
+  }
+  function handleOkBoardName() {
+    setIsEditing(true);
+  }
+  function handleDeleteBoardName() {
+    setEditBoardName(setBoardName);
+    setIsEditing(false);
   }
 
   return (
@@ -33,13 +40,13 @@ function BoardDetail() {
               <Input
                 className="w-60"
                 value={editBoardName}
-                onChange={() => setEditBoardName}
+                onChange={(e) => setEditBoardName(e.target.value)}
               />
               <Button
                 className="hover:text-destructive"
                 size="icon"
                 variant="ghost"
-                onClick={handleEditBoardName}
+                onClick={handleOkBoardName}
               >
                 <Check />
               </Button>
@@ -47,7 +54,7 @@ function BoardDetail() {
                 className="hover:text-destructive"
                 size="icon"
                 variant="ghost"
-                onClick={handleEditBoardName}
+                onClick={handleDeleteBoardName}
               >
                 <X />
               </Button>
