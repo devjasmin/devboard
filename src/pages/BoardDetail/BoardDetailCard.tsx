@@ -7,12 +7,12 @@ import {
 } from "@/components/ui/card";
 import { Plus } from "lucide-react";
 
-function BoardDetailCard() {
+function BoardDetailCard({ title, count }: { title: string; count: number }) {
   return (
     <div className="container">
       <Card className="flex flex-row-2 w-90 h-50 mt-10 ml-10 ">
         <CardHeader className="border-b my-2">
-          ToDo 0
+          {title} {count}
           <CardAction>
             <Button
               className="hover:text-destructive"

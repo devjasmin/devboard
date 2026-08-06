@@ -15,10 +15,11 @@ function BoardDetail() {
     setIsEditing(true);
   }
   function handleOkBoardName() {
+    setBoardName(editBoardName);
     setIsEditing(true);
   }
-  function handleDeleteBoardName() {
-    setEditBoardName(setBoardName);
+  function handleCancleBoardName() {
+    setEditBoardName(boardName);
     setIsEditing(false);
   }
 
@@ -54,7 +55,7 @@ function BoardDetail() {
                 className="hover:text-destructive"
                 size="icon"
                 variant="ghost"
-                onClick={handleDeleteBoardName}
+                onClick={handleCancleBoardName}
               >
                 <X />
               </Button>
@@ -75,9 +76,9 @@ function BoardDetail() {
         </div>
 
         <div className="flex flex-col-3">
-          <BoardDetailCard />
-          <BoardDetailCard />
-          <BoardDetailCard />
+          <BoardDetailCard title="To Do" count={0} />
+          <BoardDetailCard title="In Progress" count={0} />
+          <BoardDetailCard title="Done" count={0} />
         </div>
       </div>
     </>
