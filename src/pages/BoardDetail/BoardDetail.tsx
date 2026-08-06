@@ -25,8 +25,8 @@ function BoardDetail() {
 
   return (
     <>
-      <div className="container">
-        <div className="flex flex-row gap-4 mt-5 ml-5">
+      <div className="container w-100">
+        <div className="flex flex-row gap-4 mt-4 ml-5">
           <Link to={`/boards/`}>
             <Button
               className="hover:text-destructive"
