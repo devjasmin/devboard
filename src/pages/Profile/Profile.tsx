@@ -1,22 +1,66 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 function Profile() {
+  const [profilName, setProfilName] = useState("Jasmin");
+  const [editProfilName, setEditProfilName] = useState("");
+  const [isEditing, setIsEditing] = useState(false);
+
+  function handleEditProfilName() {
+    setEditProfilName(profilName);
+    setIsEditing(true);
+  }
+  // function handleOkProfilName() {
+  //   setProfilName(editProfilName);
+  //   setIsEditing(true);
+  // }
+  // function handleCancleBoardName() {
+  //   setEditProfilName(profilName);
+  //   setIsEditing(false);
+  // }
+
   return (
     <>
       <h1 className="m-10 font-bold text-2xl">Profil</h1>
-      <div className="border-2 border-slate-600 rounded-2xl w-110 h-60 m-6">
-        <h2 className="ml-2 mt-5 font-bold">Benutzerprofil ändern</h2>
-        <p className="ml-2">Ändere deinen Anzeigenamen für das Kanban-Board.</p>
-
-        <div>
-          <title>Name</title>
-          <Input className="w-60 m-5 border-slate-600"></Input>
-          <br />
-          <Button className="p-2 m-6">Speichern</Button>
-        </div>
-      </div>
+      <Card className="border-2 border-slate-600 rounded-2xl w-110 h-60 m-6">
+        <CardHeader>
+          <CardTitle className="ml-2 mt-5 font-bold">
+            Benutzerprofil ändern
+          </CardTitle>
+          <CardDescription className="ml-2 mb-4">
+            Ändere deinen Anzeigenamen für das Kanban-Board.
+          </CardDescription>
+          <CardContent>
+            <label>Name</label>
+            <div className="flex-col flex gap-1">
+              <Input
+                className="w-50 mt-4 border-slate-600"
+                id="username"
+                value={editProfilName}
+                onChange={(e) => setEditProfilName(e.target.value)}
+              ></Input>
+              <Button
+                className="mt-4 w-20"
+                size="lg"
+                variant="secondary"
+                onClick={handleEditProfilName}
+              >
+                Speichern
+              </Button>
+            </div>
+          </CardContent>
+        </CardHeader>
+      </Card>
     </>
   );
 }
+
 export default Profile;
