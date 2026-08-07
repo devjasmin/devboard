@@ -30,7 +30,7 @@ function Profile() {
   return (
     <>
       <h1 className="m-10 font-bold text-2xl">Profil</h1>
-      <Card className="border-2 border-slate-600 rounded-2xl w-110 h-60 m-6 md-auto">
+      <Card className="border-2 border-slate-400 rounded-2xl w-110 h-60 m-6 md-auto">
         <CardHeader>
           <CardTitle className="ml-2 mt-5 font-bold">
             Benutzerprofil ändern
@@ -42,7 +42,7 @@ function Profile() {
             <label>Name</label>
             <div className="flex-col flex gap-1">
               <Input
-                className="md-max mt-4 border-slate-600"
+                className="md-max mt-4 border-slate-400"
                 id="username"
                 value={profilName}
               ></Input>

@@ -25,61 +25,59 @@ function BoardDetail() {
 
   return (
     <>
-      <div className="container">
-        <div className="flex flex-row gap-4 mt-4 ml-5">
-          <Link to={`/boards/`}>
+      <div className="flex flex-row gap-4 mt-4 ml-5">
+        <Link to={`/boards/`}>
+          <Button
+            className="hover:text-destructive"
+            size="icon"
+            variant="ghost"
+          >
+            <MoveLeftIcon />
+          </Button>
+        </Link>
+        {isEditing ? (
+          <>
+            <Input
+              className="w-60"
+              value={editBoardName}
+              onChange={(e) => setEditBoardName(e.target.value)}
+            />
             <Button
               className="hover:text-destructive"
               size="icon"
               variant="ghost"
+              onClick={handleOkBoardName}
             >
-              <MoveLeftIcon />
+              <Check />
             </Button>
-          </Link>
-          {isEditing ? (
-            <>
-              <Input
-                className="w-60"
-                value={editBoardName}
-                onChange={(e) => setEditBoardName(e.target.value)}
-              />
-              <Button
-                className="hover:text-destructive"
-                size="icon"
-                variant="ghost"
-                onClick={handleOkBoardName}
-              >
-                <Check />
-              </Button>
-              <Button
-                className="hover:text-destructive"
-                size="icon"
-                variant="ghost"
-                onClick={handleCancleBoardName}
-              >
-                <X />
-              </Button>
-            </>
-          ) : (
-            <>
-              <div>{boardName}</div>
-              <Button
-                className="hover:text-destructive"
-                size="icon"
-                variant="ghost"
-                onClick={handleEditBoardName}
-              >
-                <PencilIcon />
-              </Button>
-            </>
-          )}
-        </div>
+            <Button
+              className="hover:text-destructive"
+              size="icon"
+              variant="ghost"
+              onClick={handleCancleBoardName}
+            >
+              <X />
+            </Button>
+          </>
+        ) : (
+          <div>
+            <div>{boardName}</div>
+            <Button
+              className="hover:text-destructive"
+              size="icon"
+              variant="ghost"
+              onClick={handleEditBoardName}
+            >
+              <PencilIcon />
+            </Button>
+          </>
+        )}
+      </div>
 
-        <div className="flex flex-col-3">
-          <BoardDetailCard title="To Do" count={0} />
-          <BoardDetailCard title="In Progress" count={0} />
-          <BoardDetailCard title="Done" count={0} />
-        </div>
+      <div className="flex flex-col-3">
+        <BoardDetailCard title="Neu" count={0} />
+        <BoardDetailCard title="in Bearbeitung" count={0} />
+        <BoardDetailCard title="Erledigt" count={0} />
       </div>
     </>
   );
