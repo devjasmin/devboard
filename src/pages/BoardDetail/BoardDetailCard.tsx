@@ -10,7 +10,7 @@ import { Plus, Trash2 } from "lucide-react";
 function BoardDetailCard({ title, count }: { title: string; count: number }) {
   return (
     <div className="container">
-      <Card className="flex flex-grid w-80 h-90 m-3 ">
+      <Card className="flex flex-grid w-80 h-90 m-3 bg-slate-400 ">
         <CardHeader className="border-b border-slate-700 my-2">
           <div className="flex-space-between flex items-center gap-4">
             <span className="font-bold">{title}</span>

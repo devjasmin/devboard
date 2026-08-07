@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 function BoardCard() {
   return (
     <Link to={`/boards/1`}>
-      <Card className="border transition-shadow hover:shadow-md border-black mb-4">
+      <Card className="border transition-shadow hover:shadow-md border-black mb-4 bg-slate-300">
         <CardHeader>
           <CardTitle>Name des Board</CardTitle>
           <CardDescription>Spalten 3 - 0 Task </CardDescription>
