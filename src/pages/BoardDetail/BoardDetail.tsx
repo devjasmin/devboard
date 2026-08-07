@@ -60,7 +60,7 @@ function BoardDetail() {
             </Button>
           </>
         ) : (
-          <div>
+          <>
             <div>{boardName}</div>
             <Button
               className="hover:text-destructive"
