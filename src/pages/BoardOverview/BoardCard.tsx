@@ -15,7 +15,7 @@ function BoardCard() {
       <Card className="border transition-shadow hover:shadow-md border-black mb-4">
         <CardHeader>
           <CardTitle>Name des Board</CardTitle>
-          <CardDescription className="">Spalten 3 - 0 Task </CardDescription>
+          <CardDescription>Spalten 3 - 0 Task </CardDescription>
           <CardAction>
             <Button
               className="hover:text-destructive"
