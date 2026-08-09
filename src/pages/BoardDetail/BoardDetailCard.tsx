@@ -6,6 +6,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Plus, Trash2 } from "lucide-react";
+import Dropzone from "./Dropzone";
 
 function BoardDetailCard({ title, count }: { title: string; count: number }) {
   return (
@@ -25,6 +26,7 @@ function BoardDetailCard({ title, count }: { title: string; count: number }) {
           </div>
         </CardHeader>
         <CardContent>
+          <Dropzone text="Task hier ablegen" />
           <div>
             <Card className="flex flex-grid w-70 h-30 mr-2">
               <CardHeader>
@@ -48,7 +50,6 @@ function BoardDetailCard({ title, count }: { title: string; count: number }) {
               </CardHeader>
             </Card>
           </div>
-          <p className="text-center mt-2">Keine Tasks vorhanden</p>
         </CardContent>
       </Card>
     </div>
