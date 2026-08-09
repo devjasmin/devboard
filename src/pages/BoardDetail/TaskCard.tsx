@@ -1,19 +1,20 @@
-// const Card = props => {
-//     const handleDragStart = e => {
-//         e.dataTransfer.effectAllowed = `move`
-//         e.dataTransfer.setData`id` props.id
-//     }
+import React from "react";
 
-//     return {
-//         <div
-//         draggable={true}
-//         className="card"
-//         onDragStart={e => {
-//             handleDragStart(e)
-//         }
-//         >
-//         {props.name}
-//     }
-// }
+type CardProps = {
+  text: string;
+  id: number;
+};
 
-// export default Card;
+const TaskCard = (props: CardProps) => {
+  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    e.dataTransfer.setData(`id`, props.id.toString());
+  };
+
+  return (
+    <div draggable={true} className="card" onDragStart={handleDragStart}>
+      {props.text}
+    </div>
+  );
+};
+
+export default TaskCard;

@@ -10,11 +10,16 @@ const Dropzone = (props: DropzoneProps) => {
   const handleDragLeave = () => {
     setIsDraggingOver(false);
   };
-  const handleDragOver = () => {
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
     setIsDraggingOver(true);
   };
 
-  const handleDrop = () => {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    const id = e.dataTransfer.getData("id");
+
+    console.log(id);
+
     setIsDraggingOver(false);
   };
 
@@ -24,7 +29,9 @@ const Dropzone = (props: DropzoneProps) => {
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
-    ></div>
+    >
+      {props.text}
+    </div>
   );
 };
 

@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/card";
 import { Plus, Trash2 } from "lucide-react";
 import Dropzone from "./Dropzone";
+import TaskCard from "./TaskCard";
 
 function BoardDetailCard({ title, count }: { title: string; count: number }) {
   return (
@@ -42,6 +43,7 @@ function BoardDetailCard({ title, count }: { title: string; count: number }) {
                 </div>
 
                 <div className="flex flex-col gap-1">
+                  <TaskCard id={1} text="Meine erste Aufgabe" />
                   <CardDescription className="hover:text-destructive">
                     Description
                   </CardDescription>
