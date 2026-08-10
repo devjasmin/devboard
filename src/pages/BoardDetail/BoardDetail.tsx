@@ -15,6 +15,21 @@ function BoardDetail() {
       text: "Meine erste Aufgabe",
       status: "todo",
     },
+    {
+      id: 2,
+      text: "Meine zweite Aufgabe",
+      status: "todo",
+    },
+    {
+      id: 3,
+      text: "Meine dritte Aufgabe",
+      status: "todo",
+    },
+    {
+      id: 4,
+      text: "Meine vierte Aufgabe",
+      status: "todo",
+    },
   ]);
 
   const changeTaskStatus = (id: number, newStatus: string) => {
@@ -40,7 +55,7 @@ function BoardDetail() {
 
   return (
     <>
-      <div className="flex flex-row gap-4 mt-4 ml-5">
+      <div className="flex flex-row gap-6 mt-4 ml-5 p-4">
         <Link to={`/boards/`}>
           <Button
             className="hover:text-destructive"

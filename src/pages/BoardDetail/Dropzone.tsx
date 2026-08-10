@@ -29,7 +29,7 @@ const Dropzone = (props: DropzoneProps) => {
 
   return (
     <div
-      className={`dropzone ${isDraggingOver ? `is-dragging` : ``}`}
+      className={`dropzone ${isDraggingOver ? `border-2` : ``}`}
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
