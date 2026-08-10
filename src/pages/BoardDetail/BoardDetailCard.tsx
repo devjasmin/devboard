@@ -66,13 +66,14 @@ function BoardDetailCard({
                 </div>
 
                 <div className="flex flex-col gap-1">
-                  <CardDescription className="hover:text-destructive">
-                    {tasks.map((task) => (
+                  {tasks
+                    .filter((task) => task.status === status)
+                    .map((task) => (
                       <TaskCard key={task.id} id={task.id} text={task.text} />
                     ))}
-                    Description
+                  <CardDescription className="hover:text-destructive">
+                    Sanierung Sanitäranlagen Whg 6
                   </CardDescription>
-                  <div>@Jasmin</div>
                 </div>
               </CardHeader>
             </Card>
