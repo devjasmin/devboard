@@ -25,7 +25,7 @@ function BoardDetailCard({
 }) {
   return (
     <div className="container">
-      <Card className="flex flex-grid w-90 h-100 m-3 bg-slate-400 ">
+      <Card className="flex flex-grid w-90 h-100 m-3 bg-slate-400 border-4 border-cyan-300 ">
         <CardHeader className="border-b border-slate-700 my-2">
           <div className="flex-space-between flex items-center gap-4">
             <span className="font-bold">{title}</span>
@@ -41,7 +41,7 @@ function BoardDetailCard({
         </CardHeader>
         <CardContent>
           <Dropzone
-            text="Task hier ablegen"
+            text="Hier klicken"
             status={status}
             changeTaskStatus={changeTaskStatus}
           />
