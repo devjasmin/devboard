@@ -2,6 +2,8 @@ import { useState } from "react";
 
 type DropzoneProps = {
   text: string;
+  status: string;
+  changeTaskStatus: (id: number, newStatus: string) => void;
 };
 
 const Dropzone = (props: DropzoneProps) => {
@@ -16,9 +18,11 @@ const Dropzone = (props: DropzoneProps) => {
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    const id = e.dataTransfer.getData("id");
+    const id = Number(e.dataTransfer.getData("id"));
 
-    console.log(id);
+    props.changeTaskStatus(id, props.status);
+
+    console.log(id, props.status);
 
     setIsDraggingOver(false);
   };

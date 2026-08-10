@@ -9,6 +9,21 @@ function BoardDetail() {
   const [boardName, setBoardName] = useState("Jasmin");
   const [editBoardName, setEditBoardName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      text: "Meine erste Aufgabe",
+      status: "todo",
+    },
+  ]);
+
+  const changeTaskStatus = (id: number, newStatus: string) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((tasks) =>
+        tasks.id === id ? { ...tasks, status: newStatus } : tasks,
+      ),
+    );
+  };
 
   function handleEditBoardName() {
     setEditBoardName(boardName);
@@ -75,9 +90,28 @@ function BoardDetail() {
       </div>
 
       <div className="flex flex-col-3">
-        <BoardDetailCard title="Neu" count={0} />
-        <BoardDetailCard title="in Bearbeitung" count={0} />
-        <BoardDetailCard title="Erledigt" count={0} />
+        <BoardDetailCard
+          title="Neu"
+          count={0}
+          tasks={tasks}
+          status="todo"
+          changeTaskStatus={changeTaskStatus}
+        />
+
+        <BoardDetailCard
+          title="in Bearbeitung"
+          count={0}
+          tasks={tasks}
+          status="in Bearbeitung"
+          changeTaskStatus={changeTaskStatus}
+        />
+        <BoardDetailCard
+          title="Erledigt"
+          count={0}
+          tasks={tasks}
+          status="erledigt"
+          changeTaskStatus={changeTaskStatus}
+        />
       </div>
     </>
   );
