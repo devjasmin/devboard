@@ -27,7 +27,7 @@ const TaskCard = (props: CardProps) => {
           </Button>
         </div>
       </CardHeader>
-      <CardContent>Beschreibung</CardContent>
+      <CardContent className="gap-2">Beschreibung</CardContent>
     </Card>
   );
 };

@@ -45,14 +45,13 @@ function BoardDetailCard({
             status={status}
             changeTaskStatus={changeTaskStatus}
           />
-
-          <Card className="flex flex-col w-80 h-50">
+          <div className="flex flex-col gap-3">
             {tasks
               .filter((task) => task.status === status)
               .map((task) => (
                 <TaskCard key={task.id} id={task.id} text={task.text} />
               ))}
-          </Card>
+          </div>
         </CardContent>
       </Card>
     </div>
