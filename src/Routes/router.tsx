@@ -11,6 +11,10 @@ export const router = createBrowserRouter(
       element: <App />,
       children: [
         {
+          index: true,
+          element: <BoardOverview />,
+        },
+        {
           path: "profile",
           element: <Profile />,
         },
