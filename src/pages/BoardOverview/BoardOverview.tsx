@@ -20,7 +20,7 @@ type Board = {
 
 function BoardOverview() {
   const [nameBoard, setNameBoard] = useState("");
-  // const [boards, dispatch] = useReducer(reducer, []);
+  const [boards, dispatch] = useReducer(reducer, []);
 
   type Action =
     | {
@@ -92,14 +92,27 @@ function BoardOverview() {
 
             <DialogFooter>
               <Button variant={"outline"}>Abbrechen</Button>
-              <Button variant={"default"}>Erstellen</Button>
+              <Button
+                variant={"default"}
+                onClick={() =>
+                  dispatch({
+                    type: "CREATE",
+                    id: crypto.randomUUID(),
+                    title: nameBoard,
+                  })
+                }
+              >
+                Erstellen
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
 
       <div className="grid grid-cols-3 gap-4 pt-4">
-        <BoardCard />
+        {boards.map((board) => (
+          <BoardCard key={board.id} id={board.id} title={board.title} />
+        ))}
       </div>
     </>
   );

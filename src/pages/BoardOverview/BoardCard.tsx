@@ -9,12 +9,22 @@ import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-function BoardCard() {
+type BoardCardProps = {
+  id: string;
+  title: string;
+};
+
+const BoardCardProps = (props: BoardCardProps) => {
+  props.id;
+  props.title;
+};
+
+function BoardCard(props: BoardCardProps) {
   return (
-    <Link to={`/boards/1`}>
+    <Link to={`/boards/props.id`}>
       <Card className="border transition-shadow hover:shadow-md border-black mb-4 bg-slate-300">
         <CardHeader>
-          <CardTitle>Name des Board</CardTitle>
+          <CardTitle>{props.title}</CardTitle>
           <CardDescription>Spalten 3 - 0 Task </CardDescription>
           <CardAction>
             <Button
