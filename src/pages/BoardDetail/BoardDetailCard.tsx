@@ -45,6 +45,11 @@ function BoardDetailCard({
             status={status}
             changeTaskStatus={changeTaskStatus}
           />
+          {tasks.length === 0 && (
+            <p className="text-xl mt-30 mb-8 ml-30 mr-20 flex flex-col">
+              Keine Tasks vorhanden.
+            </p>
+          )}
           <div className="flex flex-col gap-3">
             {tasks
               .filter((task) => task.status === status)

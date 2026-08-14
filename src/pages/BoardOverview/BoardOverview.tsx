@@ -4,6 +4,7 @@ import { BadgePlus } from "lucide-react";
 import BoardCard from "./BoardCard";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -64,7 +65,6 @@ function BoardOverview() {
         <Dialog>
           <DialogTrigger asChild>
             <Button
-              // onClick={handleCreateBoard}
               variant="default"
               className="p-4 font-bold bg-cyan-300 text-black "
             >
@@ -92,7 +92,9 @@ function BoardOverview() {
             />
 
             <DialogFooter>
-              <Button variant={"outline"}>Abbrechen</Button>
+              <DialogClose asChild>
+                <Button variant={"outline"}>Abbrechen</Button>
+              </DialogClose>
               <Button
                 variant={"default"}
                 onClick={() =>
