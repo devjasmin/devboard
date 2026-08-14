@@ -52,13 +52,14 @@ function BoardOverview() {
     <>
       <div className="flex flex-row place-content-between mt-5 mb-2 text-3xl bg-white">
         <h2>Meine Boards</h2>
-
-        {/* <p className="text-xl mt-8 mb-8 ml-80 mr-5 flex flex-col">
-          Noch keine Boards vorhanden. 
-          <span className="text-sm ">
-            Erstelle dein erstes Board, um loszulegen
-          </span>
-        </p>*/}
+        {boards.length === 0 && (
+          <p className="text-xl mt-30 mb-8 ml-30 mr-20 flex flex-col">
+            Noch keine Boards vorhanden.
+            <span className="text-sm ">
+              Erstelle dein erstes Board, um loszulegen
+            </span>
+          </p>
+        )}
 
         <Dialog>
           <DialogTrigger asChild>
