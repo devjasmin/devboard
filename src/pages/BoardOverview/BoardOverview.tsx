@@ -121,7 +121,12 @@ function BoardOverview() {
 
       <div className="grid grid-cols-3 gap-4 pt-4">
         {boards.map((board) => (
-          <BoardCard key={board.id} id={board.id} title={board.title} />
+          <BoardCard
+            key={board.id}
+            id={board.id}
+            title={board.title}
+            deleteBoard={deleteBoard}
+          />
         ))}
       </div>
     </>

@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 type BoardCardProps = {
   id: string;
   title: string;
+  deleteBoard: (id: string) => void;
 };
 
 const BoardCardProps = (props: BoardCardProps) => {
@@ -32,6 +33,7 @@ function BoardCard(props: BoardCardProps) {
             className="hover:text-destructive"
             size="icon"
             variant="ghost"
+            onClick={() => props.deleteBoard(props.id)}
           >
             <Trash2 />
           </Button>
