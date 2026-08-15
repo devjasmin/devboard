@@ -4,9 +4,23 @@ import BoardDetailCard from "./BoardDetailCard";
 import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
+
+type Board = {
+  id: string;
+  title: string;
+};
 
 function BoardDetail() {
-  const [boardName, setBoardName] = useState("Jasmin");
+  const { id } = useParams();
+
+  const storedBoards = localStorage.getItem("boards");
+
+  const boards: Board[] = storedBoards ? JSON.parse(storedBoards) : [];
+
+  const selectBoard = boards.find((board) => board.id === id);
+
+  const [boardName, setBoardName] = useState(selectBoard?.title ?? "");
   const [editBoardName, setEditBoardName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [tasks, setTasks] = useState([
