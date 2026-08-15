@@ -21,23 +21,23 @@ const BoardCardProps = (props: BoardCardProps) => {
 
 function BoardCard(props: BoardCardProps) {
   return (
-    <Link to={`/boards/props.id`}>
-      <Card className="border transition-shadow hover:shadow-md border-black mb-4 bg-slate-300">
-        <CardHeader>
+    <Card className="border transition-shadow hover:shadow-md border-black mb-4 bg-slate-300">
+      <CardHeader>
+        <Link to={`/boards/${props.id}`}>
           <CardTitle>{props.title}</CardTitle>
           <CardDescription>Spalten 3 - 0 Task </CardDescription>
-          <CardAction>
-            <Button
-              className="hover:text-destructive"
-              size="icon"
-              variant="ghost"
-            >
-              <Trash2 />
-            </Button>
-          </CardAction>
-        </CardHeader>
-      </Card>
-    </Link>
+        </Link>
+        <CardAction>
+          <Button
+            className="hover:text-destructive"
+            size="icon"
+            variant="ghost"
+          >
+            <Trash2 />
+          </Button>
+        </CardAction>
+      </CardHeader>
+    </Card>
   );
 }
 

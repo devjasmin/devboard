@@ -49,6 +49,13 @@ function BoardOverview() {
     return state;
   }
 
+  function deleteBoard(id: string) {
+    dispatch({
+      type: "DELETE",
+      id: id,
+    });
+  }
+
   return (
     <>
       <div className="flex flex-row place-content-between mt-5 mb-2 text-3xl bg-white">
