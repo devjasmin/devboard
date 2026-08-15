@@ -15,11 +15,6 @@ type BoardCardProps = {
   deleteBoard: (id: string) => void;
 };
 
-const BoardCardProps = (props: BoardCardProps) => {
-  props.id;
-  props.title;
-};
-
 function BoardCard(props: BoardCardProps) {
   return (
     <Card className="border transition-shadow hover:shadow-md border-black mb-4 bg-slate-300">

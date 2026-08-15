@@ -12,7 +12,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useReducer, useState } from "react";
+import { useReducer, useState, useEffect } from "react";
 
 type Board = {
   id: string;
@@ -21,7 +21,17 @@ type Board = {
 
 function BoardOverview() {
   const [nameBoard, setNameBoard] = useState("");
-  const [boards, dispatch] = useReducer(reducer, []);
+
+  const storedBoards = localStorage.getItem("boards");
+
+  const [boards, dispatch] = useReducer(
+    reducer,
+    storedBoards ? JSON.parse(storedBoards) : [],
+  );
+
+  useEffect(() => {
+    localStorage.setItem("boards", JSON.stringify(boards));
+  }, [boards]);
 
   type Action =
     | {
