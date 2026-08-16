@@ -42,6 +42,10 @@ function BoardOverview() {
     | {
         type: "DELETE";
         id: string;
+      }
+    | {
+        type: "RENAME";
+        id: string;
       };
 
   function reducer(state: Board[], action: Action) {
@@ -54,6 +58,8 @@ function BoardOverview() {
         },
       ];
     } else if (action.type === "DELETE") {
+      return state.filter((board) => board.id !== action.id);
+    } else if (action.type === "RENAME") {
       return state.filter((board) => board.id !== action.id);
     }
     return state;

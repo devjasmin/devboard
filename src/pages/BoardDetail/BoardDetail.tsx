@@ -60,8 +60,14 @@ function BoardDetail() {
   }
   function handleOkBoardName() {
     setBoardName(editBoardName);
-    setIsEditing(true);
+    setIsEditing(false);
+
+    const updatedBoards = boards.map((board) =>
+      board.id === id ? { ...board, title: editBoardName } : board,
+    );
+    localStorage.setItem("boards", JSON.stringify(updatedBoards));
   }
+
   function handleCancleBoardName() {
     setEditBoardName(boardName);
     setIsEditing(false);
