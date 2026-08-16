@@ -3,6 +3,15 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Plus } from "lucide-react";
 import Dropzone from "./Dropzone";
 import TaskCard from "./TaskCard";
+import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 type Task = {
   id: number;
@@ -30,13 +39,31 @@ function BoardDetailCard({
           <div className="flex-space-between flex items-center gap-4">
             <span className="font-bold">{title}</span>
             {count}
-            <Button
-              className="hover:text-destructive ml-auto"
-              size="icon"
-              variant="ghost"
-            >
-              <Plus />
-            </Button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  className="hover:text-destructive ml-50"
+                  size="icon"
+                  variant="ghost"
+                >
+                  <Plus />
+                </Button>
+              </DialogTrigger>
+
+              <DialogContent className="w-100 h-50">
+                <DialogHeader>
+                  <DialogTitle>Neue Task erstellen</DialogTitle>
+                  <DialogDescription>
+                    Erstelle eine neue Aufgabe für diese Spalte
+                  </DialogDescription>
+                  <DialogTitle>Titel</DialogTitle>
+                  <DialogDescription>Inputfeld</DialogDescription>
+                  <DialogTitle>Beschreibung</DialogTitle>
+                  <DialogTitle>Zugewiesen an</DialogTitle>
+                  <DialogTitle>Deadline</DialogTitle>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
           </div>
         </CardHeader>
         <CardContent>
