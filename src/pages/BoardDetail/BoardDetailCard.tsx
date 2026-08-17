@@ -8,10 +8,15 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from "@/components/ui/dialog";
+import { DeadlinePicker } from "./DeadlinePicker";
+import { SelectDemo } from "./SelectDemo";
+import { Textarea } from "@/components/ui/textarea";
 
 type Task = {
   id: number;
@@ -50,18 +55,32 @@ function BoardDetailCard({
                 </Button>
               </DialogTrigger>
 
-              <DialogContent className="w-100 h-50">
+              <DialogContent className="w-100 h-90">
                 <DialogHeader>
                   <DialogTitle>Neue Task erstellen</DialogTitle>
                   <DialogDescription>
                     Erstelle eine neue Aufgabe für diese Spalte
                   </DialogDescription>
                   <DialogTitle>Titel</DialogTitle>
-                  <DialogDescription>Inputfeld</DialogDescription>
+                  <DialogDescription>
+                    <Input
+                      className="border-2 border-cyan-300"
+                      placeholder="Task-Titel"
+                    />
+                  </DialogDescription>
                   <DialogTitle>Beschreibung</DialogTitle>
+                  <Textarea placeholder="Was soll erledigt werden?" />
                   <DialogTitle>Zugewiesen an</DialogTitle>
-                  <DialogTitle>Deadline</DialogTitle>
+                  <SelectDemo />
+                  <DialogTitle>Deadline:</DialogTitle>
+                  <DeadlinePicker />
                 </DialogHeader>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button variant={"outline"}>Abbrechen</Button>
+                  </DialogClose>
+                  <Button variant={"default"}>Erstellen</Button>
+                </DialogFooter>
               </DialogContent>
             </Dialog>
           </div>
