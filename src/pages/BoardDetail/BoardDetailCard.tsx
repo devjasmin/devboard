@@ -18,6 +18,18 @@ import { DeadlinePicker } from "./DeadlinePicker";
 import { SelectDemo } from "./SelectDemo";
 import { Textarea } from "@/components/ui/textarea";
 
+type TaskForm = {
+  title: string;
+  description: string;
+  assignedTo: string;
+  deadline: string;
+};
+
+type TaskFormAction = {
+  field: "title" | "description" | "assignedTo" | "deadline";
+  value: string;
+};
+
 type Task = {
   id: number;
   text: string;
@@ -30,12 +42,16 @@ function BoardDetailCard({
   tasks,
   status,
   changeTaskStatus,
+  taskForm,
+  dispatch,
 }: {
   title: string;
   count: number;
   tasks: Task[];
   status: string;
   changeTaskStatus: (id: number, newStatus: string) => void;
+  taskForm: TaskForm;
+  dispatch: React.Dispatch<TaskFormAction>;
 }) {
   return (
     <div className="container">
@@ -47,7 +63,7 @@ function BoardDetailCard({
             <Dialog>
               <DialogTrigger asChild>
                 <Button
-                  className="hover:text-destructive ml-50"
+                  className="hover:text-destructive ml-auto"
                   size="icon"
                   variant="ghost"
                 >
@@ -55,7 +71,7 @@ function BoardDetailCard({
                 </Button>
               </DialogTrigger>
 
-              <DialogContent className="w-100 h-90">
+              <DialogContent className="w-110 h-90">
                 <DialogHeader>
                   <DialogTitle>Neue Task erstellen</DialogTitle>
                   <DialogDescription>
@@ -66,14 +82,46 @@ function BoardDetailCard({
                     <Input
                       className="border-2 border-cyan-300"
                       placeholder="Task-Titel"
+                      value={taskForm.title}
+                      onChange={(e) =>
+                        dispatch({
+                          field: "title",
+                          value: e.target.value,
+                        })
+                      }
                     />
                   </DialogDescription>
                   <DialogTitle>Beschreibung</DialogTitle>
-                  <Textarea placeholder="Was soll erledigt werden?" />
+                  <Textarea
+                    placeholder="Was soll erledigt werden?"
+                    value={taskForm.description}
+                    onChange={(e) =>
+                      dispatch({
+                        field: "description",
+                        value: e.target.value,
+                      })
+                    }
+                  />
                   <DialogTitle>Zugewiesen an</DialogTitle>
-                  <SelectDemo />
+                  <SelectDemo
+                    value={taskForm.assignedTo}
+                    onValueChange={(value) =>
+                      dispatch({
+                        field: "assignedTo",
+                        value,
+                      })
+                    }
+                  />
                   <DialogTitle>Deadline:</DialogTitle>
-                  <DeadlinePicker />
+                  <DeadlinePicker
+                    value={taskForm.deadline}
+                    onValueChange={(value) =>
+                      dispatch({
+                        field: "deadline",
+                        value,
+                      })
+                    }
+                  />
                 </DialogHeader>
                 <DialogFooter>
                   <DialogClose asChild>

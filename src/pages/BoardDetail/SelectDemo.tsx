@@ -8,7 +8,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function SelectDemo() {
+export type SelectDemoProps = {
+  value: string;
+  onValueChange: (value: string) => void;
+};
+
+export function SelectDemo({ value, onValueChange }: SelectDemoProps) {
   const handwerkerliste = [
     "Elektriker",
     "Sanitär",
@@ -17,22 +22,21 @@ export function SelectDemo() {
     "Bodenleger",
     "Maler",
     "Gipser",
+    "Schreiner",
   ];
   return (
-    <Select>
+    <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger className="w-full max-w-48">
         <SelectValue placeholder="Wähle einen Handwerker aus" />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>Handwerker</SelectLabel>
-          <SelectItem value="Elektriker">Elektriker</SelectItem>
-          <SelectItem value="Sanitär">Sanitär</SelectItem>
-          <SelectItem value="Hauswart">Hauswartung</SelectItem>
-          <SelectItem value="Maurer">Maurer</SelectItem>
-          <SelectItem value="Bodenleger">Bodenleger</SelectItem>
-          <SelectItem value="Maler">Maler</SelectItem>
-          <SelectItem value="Gipser">Gipser</SelectItem>
+          {handwerkerliste.map((handwerker) => (
+            <SelectItem key={handwerker} value={handwerker}>
+              {handwerker}
+            </SelectItem>
+          ))}
         </SelectGroup>
       </SelectContent>
     </Select>

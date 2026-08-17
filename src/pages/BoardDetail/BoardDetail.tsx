@@ -3,7 +3,7 @@ import { MoveLeftIcon, PencilIcon, Check, X } from "lucide-react";
 import BoardDetailCard from "./BoardDetailCard";
 import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useReducer } from "react";
 import { useParams } from "react-router-dom";
 
 type Board = {
@@ -11,7 +11,33 @@ type Board = {
   title: string;
 };
 
+type TaskForm = {
+  title: string;
+  description: string;
+  assignedTo: string;
+  deadline: string;
+};
+
+type TaskFormAction = {
+  field: "title" | "description" | "assignedTo" | "deadline";
+  value: string;
+};
+
+function taskFormReducer(state: TaskForm, action: TaskFormAction) {
+  return {
+    ...state,
+    [action.field]: action.value,
+  };
+}
+
 function BoardDetail() {
+  const [taskForm, dispatch] = useReducer(taskFormReducer, {
+    title: "",
+    description: "",
+    assignedTo: "",
+    deadline: "",
+  });
+
   const { id } = useParams();
 
   const storedBoards = localStorage.getItem("boards");
@@ -131,6 +157,8 @@ function BoardDetail() {
           tasks={tasks}
           status="todo"
           changeTaskStatus={changeTaskStatus}
+          taskForm={taskForm}
+          dispatch={dispatch}
         />
 
         <BoardDetailCard
@@ -139,13 +167,18 @@ function BoardDetail() {
           tasks={tasks}
           status="in Bearbeitung"
           changeTaskStatus={changeTaskStatus}
+          taskForm={taskForm}
+          dispatch={dispatch}
         />
+
         <BoardDetailCard
           title="Erledigt"
           count={0}
           tasks={tasks}
           status="erledigt"
           changeTaskStatus={changeTaskStatus}
+          taskForm={taskForm}
+          dispatch={dispatch}
         />
       </div>
     </>
