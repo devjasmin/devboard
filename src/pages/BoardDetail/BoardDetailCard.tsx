@@ -115,12 +115,14 @@ function BoardDetailCard({
                   <DialogTitle>Deadline:</DialogTitle>
                   <DeadlinePicker
                     value={taskForm.deadline}
-                    onValueChange={(value) =>
+                    onValueChange={(value) => {
+                      console.log(value);
+
                       dispatch({
                         field: "deadline",
                         value,
-                      })
-                    }
+                      });
+                    }}
                   />
                 </DialogHeader>
                 <DialogFooter>

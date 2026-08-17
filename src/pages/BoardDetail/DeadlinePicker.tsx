@@ -11,7 +11,12 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-export function DeadlinePicker() {
+export type DeadlinePickerProps = {
+  value: string;
+  onValueChange: (value: string) => void;
+};
+
+export function DeadlinePicker({ value, onValueChange }: DeadlinePickerProps) {
   const [date, setDate] = React.useState<Date>();
 
   return (
@@ -30,7 +35,13 @@ export function DeadlinePicker() {
           <Calendar
             mode="single"
             selected={date}
-            onSelect={setDate}
+            onSelect={(selectedDate) => {
+              setDate(selectedDate);
+
+              if (selectedDate) {
+                onValueChange(format(selectedDate, "dd.MM.yyyy"));
+              }
+            }}
             defaultMonth={date}
             locale={de}
           />
