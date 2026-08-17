@@ -159,6 +159,7 @@ function BoardDetail() {
           changeTaskStatus={changeTaskStatus}
           taskForm={taskForm}
           dispatch={dispatch}
+          setTasks={setTasks}
         />
 
         <BoardDetailCard
@@ -169,6 +170,7 @@ function BoardDetail() {
           changeTaskStatus={changeTaskStatus}
           taskForm={taskForm}
           dispatch={dispatch}
+          setTasks={setTasks}
         />
 
         <BoardDetailCard
@@ -179,6 +181,7 @@ function BoardDetail() {
           changeTaskStatus={changeTaskStatus}
           taskForm={taskForm}
           dispatch={dispatch}
+          setTasks={setTasks}
         />
       </div>
     </>

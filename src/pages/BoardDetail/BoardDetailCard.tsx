@@ -36,6 +36,10 @@ type Task = {
   status: string;
 };
 
+function handleCreateTask() {
+  // hier kommt die Logik rein
+}
+
 function BoardDetailCard({
   title,
   count,
@@ -44,6 +48,7 @@ function BoardDetailCard({
   changeTaskStatus,
   taskForm,
   dispatch,
+  setTasks,
 }: {
   title: string;
   count: number;
@@ -52,6 +57,7 @@ function BoardDetailCard({
   changeTaskStatus: (id: number, newStatus: string) => void;
   taskForm: TaskForm;
   dispatch: React.Dispatch<TaskFormAction>;
+  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
 }) {
   return (
     <div className="container">
@@ -73,7 +79,7 @@ function BoardDetailCard({
 
               <DialogContent className="w-110 h-90">
                 <DialogHeader>
-                  <DialogTitle>Neue Task erstellen</DialogTitle>
+                  <DialogTitle>Neue Aufgabe erstellen</DialogTitle>
                   <DialogDescription>
                     Erstelle eine neue Aufgabe für diese Spalte
                   </DialogDescription>
@@ -129,7 +135,9 @@ function BoardDetailCard({
                   <DialogClose asChild>
                     <Button variant={"outline"}>Abbrechen</Button>
                   </DialogClose>
-                  <Button variant={"default"}>Erstellen</Button>
+                  <Button variant={"default"} onClick={handleCreateTask}>
+                    Erstellen
+                  </Button>
                 </DialogFooter>
               </DialogContent>
             </Dialog>
