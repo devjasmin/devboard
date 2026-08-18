@@ -6,6 +6,15 @@ import { Input } from "@/components/ui/input";
 import { useState, useReducer } from "react";
 import { useParams } from "react-router-dom";
 
+type Task = {
+  id: number;
+  status: string;
+  title: string;
+  description: string;
+  assignedTo: string;
+  deadline: string;
+};
+
 type Board = {
   id: string;
   title: string;
@@ -49,28 +58,7 @@ function BoardDetail() {
   const [boardName, setBoardName] = useState(selectBoard?.title ?? "");
   const [editBoardName, setEditBoardName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      text: "Meine erste Aufgabe",
-      status: "todo",
-    },
-    {
-      id: 2,
-      text: "Meine zweite Aufgabe",
-      status: "todo",
-    },
-    {
-      id: 3,
-      text: "Meine dritte Aufgabe",
-      status: "todo",
-    },
-    {
-      id: 4,
-      text: "Meine vierte Aufgabe",
-      status: "todo",
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   const changeTaskStatus = (id: number, newStatus: string) => {
     setTasks((prevTasks) =>
@@ -80,10 +68,23 @@ function BoardDetail() {
     );
   };
 
+  function handleCreateTask(status: string) {
+    const newTask: Task = {
+      id: Date.now(),
+      title: taskForm.title,
+      description: taskForm.description,
+      assignedTo: taskForm.assignedTo,
+      deadline: taskForm.deadline,
+      status: status,
+    };
+    setTasks((prevTasks) => [...prevTasks, newTask]);
+  }
+
   function handleEditBoardName() {
     setEditBoardName(boardName);
     setIsEditing(true);
   }
+
   function handleOkBoardName() {
     setBoardName(editBoardName);
     setIsEditing(false);
@@ -159,7 +160,7 @@ function BoardDetail() {
           changeTaskStatus={changeTaskStatus}
           taskForm={taskForm}
           dispatch={dispatch}
-          setTasks={setTasks}
+          handleCreateTask={handleCreateTask}
         />
 
         <BoardDetailCard
@@ -170,7 +171,7 @@ function BoardDetail() {
           changeTaskStatus={changeTaskStatus}
           taskForm={taskForm}
           dispatch={dispatch}
-          setTasks={setTasks}
+          handleCreateTask={handleCreateTask}
         />
 
         <BoardDetailCard
@@ -181,10 +182,11 @@ function BoardDetail() {
           changeTaskStatus={changeTaskStatus}
           taskForm={taskForm}
           dispatch={dispatch}
-          setTasks={setTasks}
+          handleCreateTask={handleCreateTask}
         />
       </div>
     </>
   );
 }
+
 export default BoardDetail;

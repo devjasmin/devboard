@@ -32,13 +32,12 @@ type TaskFormAction = {
 
 type Task = {
   id: number;
-  text: string;
   status: string;
+  title: string;
+  description: string;
+  assignedTo: string;
+  deadline: string;
 };
-
-function handleCreateTask() {
-  // hier kommt die Logik rein
-}
 
 function BoardDetailCard({
   title,
@@ -48,7 +47,7 @@ function BoardDetailCard({
   changeTaskStatus,
   taskForm,
   dispatch,
-  setTasks,
+  handleCreateTask,
 }: {
   title: string;
   count: number;
@@ -57,7 +56,7 @@ function BoardDetailCard({
   changeTaskStatus: (id: number, newStatus: string) => void;
   taskForm: TaskForm;
   dispatch: React.Dispatch<TaskFormAction>;
-  setTasks: React.Dispatch<React.SetStateAction<Task[]>>;
+  handleCreateTask: (status: string) => void;
 }) {
   return (
     <div className="container">
@@ -135,7 +134,10 @@ function BoardDetailCard({
                   <DialogClose asChild>
                     <Button variant={"outline"}>Abbrechen</Button>
                   </DialogClose>
-                  <Button variant={"default"} onClick={handleCreateTask}>
+                  <Button
+                    variant={"default"}
+                    onClick={() => handleCreateTask(status)}
+                  >
                     Erstellen
                   </Button>
                 </DialogFooter>
@@ -158,7 +160,14 @@ function BoardDetailCard({
             {tasks
               .filter((task) => task.status === status)
               .map((task) => (
-                <TaskCard key={task.id} id={task.id} text={task.text} />
+                <TaskCard
+                  key={task.id}
+                  id={task.id}
+                  title={task.title}
+                  description={task.description}
+                  assignedTo={task.assignedTo}
+                  deadline={task.deadline}
+                />
               ))}
           </div>
         </CardContent>

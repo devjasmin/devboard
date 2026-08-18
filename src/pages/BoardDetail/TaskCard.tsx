@@ -3,8 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 
 type CardProps = {
-  text: string;
   id: number;
+  title: string;
+  description: string;
+  assignedTo: string;
+  deadline: string;
 };
 
 const TaskCard = (props: CardProps) => {
@@ -16,7 +19,7 @@ const TaskCard = (props: CardProps) => {
     <Card draggable={true} onDragStart={handleDragStart}>
       <CardHeader>
         <div className="flex-space-between flex items-center ">
-          <span className="font-bold">{props.text}</span>
+          <span className="font-bold">{props.title}</span>
 
           <Button
             className="hover:text-destructive ml-auto"
@@ -27,7 +30,9 @@ const TaskCard = (props: CardProps) => {
           </Button>
         </div>
       </CardHeader>
-      <CardContent>Beschreibung</CardContent>
+      <CardContent>{props.description}</CardContent>
+      <CardContent>{props.assignedTo}</CardContent>
+      <CardContent>{props.deadline}</CardContent>
     </Card>
   );
 };
