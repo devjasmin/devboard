@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { useState, useReducer } from "react";
 import { useParams } from "react-router-dom";
 import type { Task, TaskForm, TaskFormAction, Board } from "./types";
+import { getBoards, getTasks, savedBoards, savedTasks } from "../api";
 
 function taskFormReducer(state: TaskForm, action: TaskFormAction) {
   if (action.type === "RESET") {
@@ -33,16 +34,15 @@ function BoardDetail() {
 
   const { id } = useParams();
 
-  const storedBoards = localStorage.getItem("boards");
-
-  const boards: Board[] = storedBoards ? JSON.parse(storedBoards) : [];
+  const boards = getBoards();
 
   const selectBoard = boards.find((board) => board.id === id);
 
   const [boardName, setBoardName] = useState(selectBoard?.title ?? "");
   const [editBoardName, setEditBoardName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const [tasks, setTasks] = useState<Task[]>(getTasks());
 
   const changeTaskStatus = (id: number, newStatus: string) => {
     setTasks((prevTasks) =>
@@ -61,7 +61,13 @@ function BoardDetail() {
       deadline: taskForm.deadline,
       status: status,
     };
-    setTasks((prevTasks) => [...prevTasks, newTask]);
+    setTasks((prevTasks) => {
+      const updatedTasks = [...prevTasks, newTask];
+
+      savedTasks(updatedTasks);
+
+      return updatedTasks;
+    });
 
     dispatch({ type: "RESET" });
   }
@@ -78,7 +84,7 @@ function BoardDetail() {
     const updatedBoards = boards.map((board) =>
       board.id === id ? { ...board, title: editBoardName } : board,
     );
-    localStorage.setItem("boards", JSON.stringify(updatedBoards));
+    savedBoards(updatedBoards);
   }
 
   function handleCancleBoardName() {
