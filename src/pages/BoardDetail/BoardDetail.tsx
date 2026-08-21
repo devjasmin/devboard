@@ -5,32 +5,7 @@ import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { useState, useReducer } from "react";
 import { useParams } from "react-router-dom";
-
-type Task = {
-  id: number;
-  status: string;
-  title: string;
-  description: string;
-  assignedTo: string;
-  deadline: string;
-};
-
-type Board = {
-  id: string;
-  title: string;
-};
-
-type TaskForm = {
-  title: string;
-  description: string;
-  assignedTo: string;
-  deadline: string;
-};
-
-type TaskFormAction = {
-  field: "title" | "description" | "assignedTo" | "deadline";
-  value: string;
-};
+import type { Task, TaskForm, TaskFormAction } from "./types";
 
 function taskFormReducer(state: TaskForm, action: TaskFormAction) {
   return {
