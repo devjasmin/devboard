@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { useState, useReducer } from "react";
 import { useParams } from "react-router-dom";
-import type { Task, TaskForm, TaskFormAction } from "./types";
+import type { Task, TaskForm, TaskFormAction, Board } from "./types";
 
 function taskFormReducer(state: TaskForm, action: TaskFormAction) {
   return {
