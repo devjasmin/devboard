@@ -47,7 +47,7 @@ function BoardDetailCard({
             changeTaskStatus={changeTaskStatus}
           />
 
-          {tasks.length === 0 && (
+          {tasks.filter((task) => task.status === status).length === 0 && (
             <p className="text-xl mt-20 mb-8 ml-20 mr-20 flex flex-col">
               keine Tasks vorhanden
             </p>
