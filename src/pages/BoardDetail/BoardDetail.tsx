@@ -8,6 +8,15 @@ import { useParams } from "react-router-dom";
 import type { Task, TaskForm, TaskFormAction, Board } from "./types";
 
 function taskFormReducer(state: TaskForm, action: TaskFormAction) {
+  if (action.type === "RESET") {
+    return {
+      title: "",
+      description: "",
+      assignedTo: "",
+      deadline: "",
+    };
+  }
+
   return {
     ...state,
     [action.field]: action.value,
@@ -53,6 +62,8 @@ function BoardDetail() {
       status: status,
     };
     setTasks((prevTasks) => [...prevTasks, newTask]);
+
+    dispatch({ type: "RESET" });
   }
 
   function handleEditBoardName() {

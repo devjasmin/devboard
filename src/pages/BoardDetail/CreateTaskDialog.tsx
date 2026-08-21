@@ -57,6 +57,7 @@ export function CreateTaskDialog({
               value={taskForm.title}
               onChange={(e) =>
                 dispatch({
+                  type: "CHANGE",
                   field: "title",
                   value: e.target.value,
                 })
@@ -69,6 +70,7 @@ export function CreateTaskDialog({
             value={taskForm.description}
             onChange={(e) =>
               dispatch({
+                type: "CHANGE",
                 field: "description",
                 value: e.target.value,
               })
@@ -79,6 +81,7 @@ export function CreateTaskDialog({
             value={taskForm.assignedTo}
             onValueChange={(value) =>
               dispatch({
+                type: "CHANGE",
                 field: "assignedTo",
                 value,
               })
@@ -91,6 +94,7 @@ export function CreateTaskDialog({
               console.log(value);
 
               dispatch({
+                type: "CHANGE",
                 field: "deadline",
                 value,
               });

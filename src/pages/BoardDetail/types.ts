@@ -19,7 +19,12 @@ export type TaskForm = {
   deadline: string;
 };
 
-export type TaskFormAction = {
-  field: "title" | "description" | "assignedTo" | "deadline";
-  value: string;
-};
+export type TaskFormAction =
+  | {
+      type: "CHANGE";
+      field: "title" | "description" | "assignedTo" | "deadline";
+      value: string;
+    }
+  | {
+      type: "RESET";
+    };
