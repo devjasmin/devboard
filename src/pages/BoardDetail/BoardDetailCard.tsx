@@ -13,6 +13,7 @@ function BoardDetailCard({
   taskForm,
   dispatch,
   handleCreateTask,
+  handleDeleteTask,
 }: {
   title: string;
   count: number;
@@ -22,6 +23,7 @@ function BoardDetailCard({
   taskForm: TaskForm;
   dispatch: React.Dispatch<TaskFormAction>;
   handleCreateTask: (status: string) => void;
+  handleDeleteTask: (id: number) => void;
 }) {
   return (
     <div className="container">
@@ -64,6 +66,7 @@ function BoardDetailCard({
                   description={task.description}
                   assignedTo={task.assignedTo}
                   deadline={task.deadline}
+                  handleDeleteTask={handleDeleteTask}
                 />
               ))}
           </div>

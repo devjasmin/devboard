@@ -8,6 +8,7 @@ type CardProps = {
   description: string;
   assignedTo: string;
   deadline: string;
+  handleDeleteTask: (id: number) => void;
 };
 
 const TaskCard = (props: CardProps) => {
@@ -25,6 +26,7 @@ const TaskCard = (props: CardProps) => {
             className="hover:text-destructive ml-auto"
             size="icon"
             variant="ghost"
+            onClick={() => props.handleDeleteTask(props.id)}
           >
             <Trash2 />
           </Button>

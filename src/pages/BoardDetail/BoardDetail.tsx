@@ -92,6 +92,10 @@ function BoardDetail() {
     setIsEditing(false);
   }
 
+  function handleDeleteTask(id: number) {
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  }
+
   return (
     <>
       <div className="flex flex-row gap-6 mt-4 ml-5 p-4">
@@ -153,6 +157,7 @@ function BoardDetail() {
           taskForm={taskForm}
           dispatch={dispatch}
           handleCreateTask={handleCreateTask}
+          handleDeleteTask={handleDeleteTask}
         />
 
         <BoardDetailCard
@@ -164,6 +169,7 @@ function BoardDetail() {
           taskForm={taskForm}
           dispatch={dispatch}
           handleCreateTask={handleCreateTask}
+          handleDeleteTask={handleDeleteTask}
         />
 
         <BoardDetailCard
@@ -175,6 +181,7 @@ function BoardDetail() {
           taskForm={taskForm}
           dispatch={dispatch}
           handleCreateTask={handleCreateTask}
+          handleDeleteTask={handleDeleteTask}
         />
       </div>
     </>
