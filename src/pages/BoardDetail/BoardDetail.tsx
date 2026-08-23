@@ -52,6 +52,12 @@ function BoardDetail() {
     );
   };
 
+  function handleUpdateTask(id: number, updateTask: Task) {
+    setTasks(
+      tasks.map((task) => (task.id === updateTask.id ? updateTask : task)),
+    );
+  }
+
   function handleCreateTask(status: string) {
     const newTask: Task = {
       id: Date.now(),
@@ -158,6 +164,7 @@ function BoardDetail() {
           dispatch={dispatch}
           handleCreateTask={handleCreateTask}
           handleDeleteTask={handleDeleteTask}
+          handleUpdateTask={handleUpdateTask}
         />
 
         <BoardDetailCard
@@ -170,6 +177,7 @@ function BoardDetail() {
           dispatch={dispatch}
           handleCreateTask={handleCreateTask}
           handleDeleteTask={handleDeleteTask}
+          handleUpdateTask={handleUpdateTask}
         />
 
         <BoardDetailCard
@@ -182,6 +190,7 @@ function BoardDetail() {
           dispatch={dispatch}
           handleCreateTask={handleCreateTask}
           handleDeleteTask={handleDeleteTask}
+          handleUpdateTask={handleUpdateTask}
         />
       </div>
     </>

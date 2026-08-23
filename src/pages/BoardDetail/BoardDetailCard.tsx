@@ -14,6 +14,7 @@ function BoardDetailCard({
   dispatch,
   handleCreateTask,
   handleDeleteTask,
+  handleUpdateTask,
 }: {
   title: string;
   count: number;
@@ -24,6 +25,7 @@ function BoardDetailCard({
   dispatch: React.Dispatch<TaskFormAction>;
   handleCreateTask: (status: string) => void;
   handleDeleteTask: (id: number) => void;
+  handleUpdateTask: (updateTask: Task) => void;
 }) {
   return (
     <div className="container">
@@ -61,12 +63,9 @@ function BoardDetailCard({
               .map((task) => (
                 <TaskCard
                   key={task.id}
-                  id={task.id}
-                  title={task.title}
-                  description={task.description}
-                  assignedTo={task.assignedTo}
-                  deadline={task.deadline}
+                  task={task}
                   handleDeleteTask={handleDeleteTask}
+                  handleUpdateTask={handleUpdateTask}
                 />
               ))}
           </div>
