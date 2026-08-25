@@ -2,6 +2,8 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import type { Task } from "./types";
+import { DialogTrigger } from "@/components/ui/dialog";
+import type { PropsWithChildren } from "react";
 
 type CardProps = {
   task: Task;

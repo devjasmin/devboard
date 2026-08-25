@@ -52,10 +52,15 @@ function BoardDetail() {
     );
   };
 
-  function handleUpdateTask(id: number, updateTask: Task) {
-    setTasks(
-      tasks.map((task) => (task.id === updateTask.id ? updateTask : task)),
-    );
+  function handleUpdateTask(updateTasks: Task) {
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.map((task) =>
+        task.id === updateTasks.id ? updateTasks : task,
+      );
+
+      savedTasks(updatedTasks);
+      return updatedTasks;
+    });
   }
 
   function handleCreateTask(status: string) {
