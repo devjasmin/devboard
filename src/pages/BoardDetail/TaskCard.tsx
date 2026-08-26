@@ -2,8 +2,7 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
 import type { Task } from "./types";
-import { DialogTrigger } from "@/components/ui/dialog";
-import type { PropsWithChildren } from "react";
+import { UpdateTaskDialog } from "./UpdateTaskDialog";
 
 type CardProps = {
   task: Task;
@@ -17,25 +16,30 @@ const TaskCard = (props: CardProps) => {
   };
 
   return (
-    <Card draggable={true} onDragStart={handleDragStart}>
-      <CardHeader>
-        <div className="flex-space-between flex items-center ">
-          <span className="font-bold">{props.task.title}</span>
+    <UpdateTaskDialog
+      task={props.task}
+      handleUpdateTask={props.handleUpdateTask}
+    >
+      <Card draggable={true} onDragStart={handleDragStart}>
+        <CardHeader>
+          <div className="flex-space-between flex items-center ">
+            <span className="font-bold">{props.task.title}</span>
 
-          <Button
-            className="hover:text-destructive ml-auto"
-            size="icon"
-            variant="ghost"
-            onClick={() => props.handleDeleteTask(props.task.id)}
-          >
-            <Trash2 />
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent>{props.task.description}</CardContent>
-      <CardContent>{props.task.assignedTo}</CardContent>
-      <CardContent>{props.task.deadline}</CardContent>
-    </Card>
+            <Button
+              className="hover:text-destructive ml-auto"
+              size="icon"
+              variant="ghost"
+              onClick={() => props.handleDeleteTask(props.task.id)}
+            >
+              <Trash2 />
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent>{props.task.description}</CardContent>
+        <CardContent>{props.task.assignedTo}</CardContent>
+        <CardContent>{props.task.deadline}</CardContent>
+      </Card>
+    </UpdateTaskDialog>
   );
 };
 

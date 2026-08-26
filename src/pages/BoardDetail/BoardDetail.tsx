@@ -57,7 +57,7 @@ function BoardDetail() {
       const updatedTasks = prevTasks.map((task) =>
         task.id === updateTasks.id ? updateTasks : task,
       );
-
+      console.log("kommt in BoardDetail an:", updatedTasks);
       savedTasks(updatedTasks);
       return updatedTasks;
     });
