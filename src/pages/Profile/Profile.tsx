@@ -8,24 +8,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { getProfilName, savedprofilName } from "../api";
 
 function Profile() {
-  const [profilName, setProfilName] = useState("Jasmin");
-  const [editProfilName, setEditProfilName] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
-
-  function handleEditProfilName() {
-    setEditProfilName(profilName);
-    setIsEditing(true);
-  }
-  // function handleOkProfilName() {
-  //   setProfilName(editProfilName);
-  //   setIsEditing(true);
-  // }
-  // function handleCancleBoardName() {
-  //   setEditProfilName(profilName);
-  //   setIsEditing(false);
-  // }
+  const [profilName, setProfilName] = useState(getProfilName());
 
   return (
     <>
@@ -35,22 +21,23 @@ function Profile() {
           <CardTitle className="ml-2 mt-5 font-bold">
             Benutzerprofil ändern
           </CardTitle>
-          <CardDescription className="ml-2 mb-4">
+          <CardDescription className="ml-2 mb-4 text-slate-800">
             Ändere deinen Anzeigenamen für das Kanban-Board.
           </CardDescription>
           <CardContent>
             <label>Name</label>
             <div className="flex-col flex gap-1">
               <Input
-                className="md-max mt-4 border-slate-400"
+                className="md-max mt-4 border-slate-500 border-2"
                 id="username"
                 value={profilName}
+                onChange={(e) => setProfilName(e.target.value)}
               ></Input>
               <Button
                 className="mt-4 w-30 hover:cursor-pointer"
                 size="lg"
                 variant="secondary"
-                onClick={handleEditProfilName}
+                onClick={() => savedprofilName(profilName)}
               >
                 Speichern
               </Button>

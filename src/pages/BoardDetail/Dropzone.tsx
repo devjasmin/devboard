@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 type DropzoneProps = {
-  text: string;
   status: string;
   changeTaskStatus: (id: number, newStatus: string) => void;
 };
@@ -29,13 +28,11 @@ const Dropzone = (props: DropzoneProps) => {
 
   return (
     <div
-      className={`dropzone ${isDraggingOver ? `bg-blue-400 border-dashed border-b p-20` : ``}`}
+      className={`dropzone min-h-8 px-2 ${isDraggingOver ? `bg-blue-400 border-dashed border-b p-20` : ``}`}
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
-    >
-      {props.text}
-    </div>
+    ></div>
   );
 };
 

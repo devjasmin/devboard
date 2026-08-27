@@ -45,11 +45,19 @@ function BoardDetail() {
   const [tasks, setTasks] = useState<Task[]>(getTasks());
 
   const changeTaskStatus = (id: number, newStatus: string) => {
-    setTasks((prevTasks) =>
-      prevTasks.map((tasks) =>
-        tasks.id === id ? { ...tasks, status: newStatus } : tasks,
-      ),
-    );
+    const selectTask = tasks.find((task) => task.id === id);
+    if (
+      (selectTask?.status === "todo" && newStatus === "in Bearbeitung") ||
+      (selectTask?.status === "in Bearbeitung" && newStatus === "erledigt")
+    ) {
+      setTasks((prevTasks) => {
+        const updatedTasks = prevTasks.map((tasks) =>
+          tasks.id === id ? { ...tasks, status: newStatus } : tasks,
+        );
+        savedTasks(updatedTasks);
+        return updatedTasks;
+      });
+    }
   };
 
   function handleUpdateTask(updateTasks: Task) {
@@ -57,7 +65,6 @@ function BoardDetail() {
       const updatedTasks = prevTasks.map((task) =>
         task.id === updateTasks.id ? updateTasks : task,
       );
-      console.log("kommt in BoardDetail an:", updatedTasks);
       savedTasks(updatedTasks);
       return updatedTasks;
     });

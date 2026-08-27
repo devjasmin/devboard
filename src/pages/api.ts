@@ -1,4 +1,4 @@
-import type { Board, Task } from "../pages/BoardDetail/types";
+import type { Board, Task, Profilname } from "../pages/BoardDetail/types";
 
 export function getBoards() {
   const storedBoards = localStorage.getItem("boards");
@@ -20,4 +20,17 @@ export function getTasks() {
 
 export function savedTasks(tasks: Task[]) {
   localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+export function getProfilName() {
+  const storedProfilName = localStorage.getItem("profilname");
+  const profilName: Profilname = storedProfilName
+    ? JSON.parse(storedProfilName)
+    : "Jasmin";
+
+  return profilName;
+}
+
+export function savedprofilName(profilname: string) {
+  localStorage.setItem("profilname", JSON.stringify(profilname));
 }

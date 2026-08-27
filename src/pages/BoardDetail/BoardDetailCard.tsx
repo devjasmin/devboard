@@ -45,11 +45,7 @@ function BoardDetailCard({
         </CardHeader>
 
         <CardContent>
-          <Dropzone
-            text="Hier klicken"
-            status={status}
-            changeTaskStatus={changeTaskStatus}
-          />
+          <Dropzone status={status} changeTaskStatus={changeTaskStatus} />
 
           {tasks.filter((task) => task.status === status).length === 0 && (
             <p className="text-xl mt-20 mb-8 ml-20 mr-20 flex flex-col">
