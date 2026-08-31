@@ -1,6 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import {
   Card,
   CardContent,
@@ -13,6 +13,13 @@ import { ProfilContext } from "../context/ProfileContext";
 
 function Profile() {
   const profilContext = useContext(ProfilContext);
+  const [editProfilName, setEditProfilName] = useState(
+    profilContext?.profilName ?? "",
+  );
+
+  if (!profilContext) {
+    return null;
+  }
 
   return (
     <>
@@ -31,14 +38,17 @@ function Profile() {
               <Input
                 className="md-max mt-4 border-slate-500 border-2"
                 id="username"
-                value={profilContext?.profilName}
-                onChange={(e) => profilContext?.setProfilName(e.target.value)}
+                value={editProfilName}
+                onChange={(e) => setEditProfilName(e.target.value)}
               ></Input>
               <Button
                 className="mt-4 w-30 hover:cursor-pointer"
                 size="lg"
                 variant="secondary"
-                onClick={() => savedprofilName(profilContext.profilName)}
+                onClick={() => {
+                  savedprofilName(editProfilName);
+                  profilContext.setProfilName(editProfilName);
+                }}
               >
                 Speichern
               </Button>
