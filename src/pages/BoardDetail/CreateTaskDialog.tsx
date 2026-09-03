@@ -3,8 +3,8 @@ import { Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { DeadlinePicker } from "./DeadlinePicker";
-import { SelectDemo } from "./SelectDemo";
-import type { Task, TaskForm, TaskFormAction } from "./types";
+import { HandwerkerSelect } from "./HandwerkerSelect";
+import type { Task, TaskForm, TaskFormAction } from "../../types";
 
 import {
   Dialog,
@@ -77,7 +77,7 @@ export function CreateTaskDialog({
             }
           />
           <DialogTitle>Zugewiesen an</DialogTitle>
-          <SelectDemo
+          <HandwerkerSelect
             value={taskForm.assignedTo}
             onValueChange={(value) =>
               dispatch({
@@ -91,8 +91,6 @@ export function CreateTaskDialog({
           <DeadlinePicker
             value={taskForm.deadline}
             onValueChange={(value) => {
-              console.log(value);
-
               dispatch({
                 type: "CHANGE",
                 field: "deadline",

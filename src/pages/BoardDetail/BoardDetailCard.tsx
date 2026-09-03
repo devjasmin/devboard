@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Dropzone from "./Dropzone";
 import TaskCard from "./TaskCard";
 import { CreateTaskDialog } from "./CreateTaskDialog";
-import type { Task, TaskForm, TaskFormAction } from "./types";
+import type { Task, TaskForm, TaskFormAction } from "../../types";
 
 function BoardDetailCard({
   title,
@@ -33,7 +33,7 @@ function BoardDetailCard({
         <CardHeader className="border-b border-slate-700 my-2">
           <div className="flex-space-between flex items-center gap-2">
             <span className="font-bold">{title}</span>
-            {count}
+            {tasks.filter((task) => task.status === status).length}
 
             <CreateTaskDialog
               taskForm={taskForm}

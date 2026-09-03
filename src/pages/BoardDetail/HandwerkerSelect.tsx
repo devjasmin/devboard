@@ -8,12 +8,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export type SelectDemoProps = {
+export type HandwerkerSelectProps = {
   value: string;
   onValueChange: (value: string) => void;
 };
 
-export function SelectDemo({ value, onValueChange }: SelectDemoProps) {
+export function HandwerkerSelect({
+  value,
+  onValueChange,
+}: HandwerkerSelectProps) {
   const handwerkerliste = [
     "Elektriker",
     "Sanitär",

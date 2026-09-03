@@ -21,8 +21,6 @@ const Dropzone = (props: DropzoneProps) => {
 
     props.changeTaskStatus(id, props.status);
 
-    console.log(id, props.status);
-
     setIsDraggingOver(false);
   };
 

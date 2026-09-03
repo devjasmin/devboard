@@ -2,8 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { DeadlinePicker } from "./DeadlinePicker";
-import { SelectDemo } from "./SelectDemo";
-import type { Task } from "./types";
+import { HandwerkerSelect } from "./HandwerkerSelect";
+import type { Task } from "../../types";
 import { useState } from "react";
 
 import {
@@ -42,7 +42,7 @@ export function UpdateTaskDialog({
       assignedTo,
       deadline,
     };
-    console.log("savedTask:", savedTask);
+
     handleUpdateTask(savedTask);
   }
 
@@ -71,7 +71,7 @@ export function UpdateTaskDialog({
             onChange={(e) => setDescription(e.target.value)}
           />
           <DialogTitle>Zugewiesen an</DialogTitle>
-          <SelectDemo
+          <HandwerkerSelect
             value={assignedTo}
             onValueChange={(value) => setAssignedTo(value)}
           />

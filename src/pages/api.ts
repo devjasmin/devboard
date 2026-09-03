@@ -1,4 +1,4 @@
-import type { Board, Task, Profilname } from "../pages/BoardDetail/types";
+import type { Board, Task, Profilname } from "../types";
 
 export function getBoards() {
   const storedBoards = localStorage.getItem("boards");

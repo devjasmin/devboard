@@ -1,7 +1,7 @@
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-import type { Task } from "./types";
+import type { Task } from "../../types";
 import { UpdateTaskDialog } from "./UpdateTaskDialog";
 
 type CardProps = {
