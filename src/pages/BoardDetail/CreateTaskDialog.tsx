@@ -103,9 +103,14 @@ export function CreateTaskDialog({
           <DialogClose asChild>
             <Button variant={"outline"}>Abbrechen</Button>
           </DialogClose>
-          <Button variant={"default"} onClick={() => handleCreateTask(status)}>
-            Erstellen
-          </Button>
+          <DialogClose asChild>
+            <Button
+              variant={"default"}
+              onClick={() => handleCreateTask(status)}
+            >
+              Erstellen
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>

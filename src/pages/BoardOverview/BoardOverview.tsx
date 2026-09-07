@@ -118,18 +118,20 @@ function BoardOverview() {
               <DialogClose asChild>
                 <Button variant={"outline"}>Abbrechen</Button>
               </DialogClose>
-              <Button
-                variant={"default"}
-                onClick={() =>
-                  dispatch({
-                    type: "CREATE",
-                    id: crypto.randomUUID(),
-                    title: nameBoard,
-                  })
-                }
-              >
-                Erstellen
-              </Button>
+              <DialogClose asChild>
+                <Button
+                  variant={"default"}
+                  onClick={() =>
+                    dispatch({
+                      type: "CREATE",
+                      id: crypto.randomUUID(),
+                      title: nameBoard,
+                    })
+                  }
+                >
+                  Erstellen
+                </Button>
+              </DialogClose>
             </DialogFooter>
           </DialogContent>
         </Dialog>
