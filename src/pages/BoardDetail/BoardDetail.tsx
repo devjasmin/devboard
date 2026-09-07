@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MoveLeftIcon, PencilIcon, Check, X } from "lucide-react";
-import BoardDetailCard from "./BoardDetailCard";
+import BoardDetailColumn from "./BoardDetailColumn";
 import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { useState, useReducer } from "react";
@@ -166,7 +166,7 @@ function BoardDetail() {
       </div>
 
       <div className="flex flex-col-3">
-        <BoardDetailCard
+        <BoardDetailColumn
           title="Neu"
           count={0}
           tasks={tasks}
@@ -179,7 +179,7 @@ function BoardDetail() {
           handleUpdateTask={handleUpdateTask}
         />
 
-        <BoardDetailCard
+        <BoardDetailColumn
           title="in Bearbeitung"
           count={0}
           tasks={tasks}
@@ -192,7 +192,7 @@ function BoardDetail() {
           handleUpdateTask={handleUpdateTask}
         />
 
-        <BoardDetailCard
+        <BoardDetailColumn
           title="Erledigt"
           count={0}
           tasks={tasks}

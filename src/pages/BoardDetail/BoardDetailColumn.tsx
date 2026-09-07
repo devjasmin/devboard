@@ -4,7 +4,7 @@ import TaskCard from "./TaskCard";
 import { CreateTaskDialog } from "./CreateTaskDialog";
 import type { Task, TaskForm, TaskFormAction } from "../../types";
 
-function BoardDetailCard({
+function BoardDetailColumn({
   title,
   count,
   tasks,
@@ -71,4 +71,4 @@ function BoardDetailCard({
   );
 }
 
-export default BoardDetailCard;
+export default BoardDetailColumn;
