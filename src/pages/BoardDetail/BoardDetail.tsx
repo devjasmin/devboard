@@ -78,6 +78,7 @@ function BoardDetail() {
       assignedTo: taskForm.assignedTo,
       deadline: taskForm.deadline,
       status: status,
+      boardId: id || "",
     };
     setTasks((prevTasks) => {
       const updatedTasks = [...prevTasks, newTask];
@@ -174,6 +175,7 @@ function BoardDetail() {
           changeTaskStatus={changeTaskStatus}
           taskForm={taskForm}
           dispatch={dispatch}
+          boardId={id || ""}
           handleCreateTask={handleCreateTask}
           handleDeleteTask={handleDeleteTask}
           handleUpdateTask={handleUpdateTask}
@@ -187,6 +189,7 @@ function BoardDetail() {
           changeTaskStatus={changeTaskStatus}
           taskForm={taskForm}
           dispatch={dispatch}
+          boardId={id || ""}
           handleCreateTask={handleCreateTask}
           handleDeleteTask={handleDeleteTask}
           handleUpdateTask={handleUpdateTask}
@@ -200,6 +203,7 @@ function BoardDetail() {
           changeTaskStatus={changeTaskStatus}
           taskForm={taskForm}
           dispatch={dispatch}
+          boardId={id || ""}
           handleCreateTask={handleCreateTask}
           handleDeleteTask={handleDeleteTask}
           handleUpdateTask={handleUpdateTask}

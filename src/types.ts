@@ -5,6 +5,7 @@ export type Task = {
   description: string;
   assignedTo: string;
   deadline: string;
+  boardId: string;
 };
 
 export type Board = {
