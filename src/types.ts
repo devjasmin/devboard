@@ -5,12 +5,12 @@ export type Task = {
   description: string;
   assignedTo: string;
   deadline: string;
-  boardId: string;
 };
 
 export type Board = {
   id: string;
   title: string;
+  tasks: Task[];
 };
 
 export type TaskForm = {
@@ -29,5 +29,4 @@ export type TaskFormAction =
   | {
       type: "RESET";
     };
-
 export type Profilname = string;

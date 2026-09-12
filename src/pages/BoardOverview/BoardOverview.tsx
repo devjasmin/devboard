@@ -13,11 +13,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useReducer, useState, useEffect } from "react";
-
-type Board = {
-  id: string;
-  title: string;
-};
+import type { Board } from "../../types";
+import { savedBoards } from "../api";
 
 function BoardOverview() {
   const [nameBoard, setNameBoard] = useState("");
@@ -28,6 +25,8 @@ function BoardOverview() {
     reducer,
     storedBoards ? JSON.parse(storedBoards) : [],
   );
+
+  savedBoards(boards);
 
   useEffect(() => {
     localStorage.setItem("boards", JSON.stringify(boards));
@@ -55,6 +54,7 @@ function BoardOverview() {
         {
           id: action.id,
           title: action.title,
+          tasks: [],
         },
       ];
     } else if (action.type === "DELETE") {

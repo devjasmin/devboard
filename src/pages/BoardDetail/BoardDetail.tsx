@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { useState, useReducer } from "react";
 import { useParams } from "react-router-dom";
-import type { Task, TaskForm, TaskFormAction, Board } from "../../types";
-import { getBoards, getTasks, savedBoards, savedTasks } from "../api";
+import type { Task, TaskForm, TaskFormAction } from "../../types";
+import { getBoards, savedBoards } from "../api";
 
 function taskFormReducer(state: TaskForm, action: TaskFormAction) {
   if (action.type === "RESET") {
@@ -42,22 +42,33 @@ function BoardDetail() {
   const [editBoardName, setEditBoardName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  const [tasks, setTasks] = useState<Task[]>(getTasks());
+  const [tasks, setTasks] = useState<Task[]>(selectBoard?.tasks || []);
 
-  const changeTaskStatus = (id: number, newStatus: string) => {
-    const selectTask = tasks.find((task) => task.id === id);
-    if (
-      (selectTask?.status === "todo" && newStatus === "in Bearbeitung") ||
-      (selectTask?.status === "in Bearbeitung" && newStatus === "erledigt")
-    ) {
-      setTasks((prevTasks) => {
-        const updatedTasks = prevTasks.map((tasks) =>
-          tasks.id === id ? { ...tasks, status: newStatus } : tasks,
-        );
-        savedTasks(updatedTasks);
-        return updatedTasks;
-      });
-    }
+  const changeTaskStatus = (taskId: number, newStatus: string) => {
+    setTasks((prevTasks) => {
+      const selectTask = prevTasks.find((task) => task.id === taskId);
+
+      if (
+        !(
+          (selectTask?.status === "todo" && newStatus === "in Bearbeitung") ||
+          (selectTask?.status === "in Bearbeitung" && newStatus === "erledigt")
+        )
+      ) {
+        return prevTasks;
+      }
+
+      const updatedTasks = prevTasks.map((task) =>
+        task.id === taskId ? { ...task, status: newStatus } : task,
+      );
+
+      const updatedBoards = boards.map((board) =>
+        board.id === id ? { ...board, tasks: updatedTasks } : board,
+      );
+
+      savedBoards(updatedBoards);
+      console.log("update");
+      return updatedTasks;
+    });
   };
 
   function handleUpdateTask(updateTasks: Task) {
@@ -65,7 +76,12 @@ function BoardDetail() {
       const updatedTasks = prevTasks.map((task) =>
         task.id === updateTasks.id ? updateTasks : task,
       );
-      savedTasks(updatedTasks);
+
+      const updatedBoards = boards.map((board) =>
+        board.id === id ? { ...board, tasks: updatedTasks } : board,
+      );
+
+      savedBoards(updatedBoards);
       return updatedTasks;
     });
   }
@@ -78,13 +94,15 @@ function BoardDetail() {
       assignedTo: taskForm.assignedTo,
       deadline: taskForm.deadline,
       status: status,
-      boardId: id || "",
     };
     setTasks((prevTasks) => {
       const updatedTasks = [...prevTasks, newTask];
 
-      savedTasks(updatedTasks);
+      const updatedBoards = boards.map((board) =>
+        board.id === id ? { ...board, tasks: updatedTasks } : board,
+      );
 
+      savedBoards(updatedBoards);
       return updatedTasks;
     });
 
@@ -111,8 +129,15 @@ function BoardDetail() {
     setIsEditing(false);
   }
 
-  function handleDeleteTask(id: number) {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+  function handleDeleteTask(taskId: number) {
+    setTasks((prevTasks) => {
+      const updatedTasks = prevTasks.filter((task) => task.id !== taskId);
+      const updatedBoards = boards.filter((board) =>
+        board.id === id ? { ...board, tasks: updatedTasks } : board,
+      );
+      savedBoards(updatedBoards);
+      return updatedTasks;
+    });
   }
 
   return (
@@ -169,13 +194,11 @@ function BoardDetail() {
       <div className="flex flex-col-3">
         <BoardDetailColumn
           title="Neu"
-          count={0}
           tasks={tasks}
           status="todo"
           changeTaskStatus={changeTaskStatus}
           taskForm={taskForm}
           dispatch={dispatch}
-          boardId={id || ""}
           handleCreateTask={handleCreateTask}
           handleDeleteTask={handleDeleteTask}
           handleUpdateTask={handleUpdateTask}
@@ -183,13 +206,11 @@ function BoardDetail() {
 
         <BoardDetailColumn
           title="in Bearbeitung"
-          count={0}
           tasks={tasks}
           status="in Bearbeitung"
           changeTaskStatus={changeTaskStatus}
           taskForm={taskForm}
           dispatch={dispatch}
-          boardId={id || ""}
           handleCreateTask={handleCreateTask}
           handleDeleteTask={handleDeleteTask}
           handleUpdateTask={handleUpdateTask}
@@ -197,13 +218,11 @@ function BoardDetail() {
 
         <BoardDetailColumn
           title="Erledigt"
-          count={0}
           tasks={tasks}
           status="erledigt"
           changeTaskStatus={changeTaskStatus}
           taskForm={taskForm}
           dispatch={dispatch}
-          boardId={id || ""}
           handleCreateTask={handleCreateTask}
           handleDeleteTask={handleDeleteTask}
           handleUpdateTask={handleUpdateTask}

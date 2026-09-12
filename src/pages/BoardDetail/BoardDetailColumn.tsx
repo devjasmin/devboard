@@ -6,25 +6,21 @@ import type { Task, TaskForm, TaskFormAction } from "../../types";
 
 function BoardDetailColumn({
   title,
-  count,
   tasks,
   status,
   changeTaskStatus,
   taskForm,
   dispatch,
-  boardId,
   handleCreateTask,
   handleDeleteTask,
   handleUpdateTask,
 }: {
   title: string;
-  count: number;
   tasks: Task[];
   status: string;
   changeTaskStatus: (id: number, newStatus: string) => void;
   taskForm: TaskForm;
   dispatch: React.Dispatch<TaskFormAction>;
-  boardId: string;
   handleCreateTask: (status: string) => void;
   handleDeleteTask: (id: number) => void;
   handleUpdateTask: (updateTask: Task) => void;
@@ -35,11 +31,11 @@ function BoardDetailColumn({
         <CardHeader className="border-b border-slate-700 my-2">
           <div className="flex-space-between flex items-center gap-2">
             <span className="font-bold">{title}</span>
-            {
-              tasks.filter(
-                (task) => task.status === status && task.boardId === boardId,
-              ).length
-            }
+            <span
+              key={`${status}-${tasks.filter((task) => task.status === status).length}`}
+            >
+              {tasks.filter((task) => task.status === status).length}
+            </span>
 
             <CreateTaskDialog
               taskForm={taskForm}
@@ -53,9 +49,7 @@ function BoardDetailColumn({
         <CardContent>
           <Dropzone status={status} changeTaskStatus={changeTaskStatus} />
 
-          {tasks.filter(
-            (task) => task.status === status && task.boardId === boardId,
-          ).length === 0 && (
+          {tasks.filter((task) => task.status === status).length === 0 && (
             <p className="text-xl mt-20 mb-8 ml-20 mr-20 flex flex-col">
               keine Tasks vorhanden
             </p>
@@ -63,9 +57,7 @@ function BoardDetailColumn({
 
           <div className="flex flex-col gap-3">
             {tasks
-              .filter(
-                (task) => task.status === status && task.boardId === boardId,
-              )
+              .filter((task) => task.status === status)
               .map((task) => (
                 <TaskCard
                   key={task.id}
