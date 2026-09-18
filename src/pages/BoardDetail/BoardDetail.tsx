@@ -66,7 +66,6 @@ function BoardDetail() {
       );
 
       savedBoards(updatedBoards);
-      console.log("update");
       return updatedTasks;
     });
   };

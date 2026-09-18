@@ -11,17 +11,6 @@ export function savedBoards(boards: Board[]) {
   localStorage.setItem("boards", JSON.stringify(boards));
 }
 
-export function getTasks() {
-  const storedTasks = localStorage.getItem("tasks");
-  const tasks: Task[] = storedTasks ? JSON.parse(storedTasks) : [];
-
-  return tasks;
-}
-
-export function savedTasks(tasks: Task[]) {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
 export function getProfilName() {
   const storedProfilName = localStorage.getItem("profilname");
   const profilName: Profilname = storedProfilName

@@ -85,9 +85,11 @@ export function UpdateTaskDialog({
           <DialogClose asChild>
             <Button variant={"outline"}>Abbrechen</Button>
           </DialogClose>
-          <Button variant={"default"} onClick={handleSaveTask}>
-            Speichern
-          </Button>
+          <DialogClose asChild>
+            <Button variant={"default"} onClick={handleSaveTask}>
+              Speichern
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
