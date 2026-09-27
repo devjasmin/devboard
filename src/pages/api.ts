@@ -1,4 +1,5 @@
 import type { Board, Task, Profilname } from "../types";
+import { supabase } from "../lib/db";
 
 export function getBoards() {
   const storedBoards = localStorage.getItem("boards");
