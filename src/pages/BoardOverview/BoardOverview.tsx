@@ -14,23 +14,20 @@ import {
 } from "@/components/ui/dialog";
 import { useReducer, useState, useEffect } from "react";
 import type { Board } from "../../types";
-import { savedBoards } from "../api";
+import { getBoards, savedBoards } from "../api";
 
 function BoardOverview() {
   const [nameBoard, setNameBoard] = useState("");
 
-  const storedBoards = localStorage.getItem("boards");
-
-  const [boards, dispatch] = useReducer(
-    reducer,
-    storedBoards ? JSON.parse(storedBoards) : [],
-  );
-
-  savedBoards(boards);
-
   useEffect(() => {
-    localStorage.setItem("boards", JSON.stringify(boards));
-  }, [boards]);
+    const storedBoards = async () => {
+      const boards = await getBoards();
+      dispatch({ type: "LOAD", boards: boards ?? [] });
+    };
+    storedBoards();
+  }, []);
+
+  const [boards, dispatch] = useReducer(reducer, []);
 
   type Action =
     | {
@@ -45,6 +42,10 @@ function BoardOverview() {
     | {
         type: "RENAME";
         id: string;
+      }
+    | {
+        type: "LOAD";
+        boards: Board[];
       };
 
   function reducer(state: Board[], action: Action) {
@@ -61,7 +62,10 @@ function BoardOverview() {
       return state.filter((board) => board.id !== action.id);
     } else if (action.type === "RENAME") {
       return state.filter((board) => board.id !== action.id);
+    } else if (action.type === "LOAD") {
+      return action.boards;
     }
+
     return state;
   }
 

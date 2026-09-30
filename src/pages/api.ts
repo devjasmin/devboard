@@ -1,10 +1,13 @@
 import type { Board, Task, Profilname } from "../types";
 import { supabase } from "../lib/db";
 
-export function getBoards() {
-  const storedBoards = localStorage.getItem("boards");
-  const boards: Board[] = storedBoards ? JSON.parse(storedBoards) : [];
-
+export async function getBoards() {
+  let { data: boards, error } = await supabase.from("boards").select("*");
+  if (error) {
+    console.error("Error fetching boards:", error);
+  }
+  console.log("getBoards Supabase:", boards);
+  console.log("getBoards Supabase error:", error);
   return boards;
 }
 

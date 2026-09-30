@@ -3,9 +3,9 @@ import { MoveLeftIcon, PencilIcon, Check, X } from "lucide-react";
 import BoardDetailColumn from "./BoardDetailColumn";
 import { Link } from "react-router-dom";
 import { Input } from "@/components/ui/input";
-import { useState, useReducer } from "react";
+import { useState, useReducer, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import type { Task, TaskForm, TaskFormAction } from "../../types";
+import type { Board, Task, TaskForm, TaskFormAction } from "../../types";
 import { getBoards, savedBoards } from "../api";
 
 function taskFormReducer(state: TaskForm, action: TaskFormAction) {
@@ -32,13 +32,30 @@ function BoardDetail() {
     deadline: "",
   });
 
+  const [boards, setBoards] = useState<Board[]>([]);
+
+  useEffect(() => {
+    const fetchBoards = async () => {
+      const boards = await getBoards();
+      setBoards(boards ?? []);
+    };
+    fetchBoards();
+  }, []);
+
   const { id } = useParams();
 
-  const boards = getBoards();
-
   const selectBoard = boards.find((board) => board.id === id);
+  console.log("id aus URL:", id);
+  console.log("boards aus supabase:", boards);
+  console.log("gefundes Board:", selectBoard);
 
-  const [boardName, setBoardName] = useState(selectBoard?.title ?? "");
+  useEffect(() => {
+    if (selectBoard) {
+      setBoardName(selectBoard.title);
+    }
+  }, [selectBoard]);
+
+  const [boardName, setBoardName] = useState("");
   const [editBoardName, setEditBoardName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
