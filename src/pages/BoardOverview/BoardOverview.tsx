@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { useReducer, useState, useEffect } from "react";
 import type { Board } from "../../types";
-import { createBoard, getBoards } from "../api";
+import { createBoard, deleteBoard, getBoards } from "../api";
 
 function BoardOverview() {
   const [nameBoard, setNameBoard] = useState("");
@@ -81,11 +81,16 @@ function BoardOverview() {
     return newBoard;
   }
 
-  function deleteBoard(id: string) {
-    dispatch({
-      type: "DELETE",
-      id: id,
-    });
+  async function handleDeleteBoard(id: string) {
+    console.log("handleDeleteBoard wurde aufgerufen:", id);
+    const deletedBoard = await deleteBoard({ id: id });
+    if (deletedBoard) {
+      dispatch({
+        type: "DELETE",
+        id: deletedBoard[0].id,
+      });
+    }
+    return deletedBoard;
   }
 
   return (
@@ -153,7 +158,7 @@ function BoardOverview() {
             key={board.id}
             id={board.id}
             title={board.title}
-            deleteBoard={deleteBoard}
+            handleDeleteBoard={handleDeleteBoard}
           />
         ))}
       </div>

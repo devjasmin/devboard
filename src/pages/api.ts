@@ -1,4 +1,4 @@
-import type { Board, Task, Profilname } from "../types";
+import type { Board, Profilname } from "../types";
 import { supabase } from "../lib/db";
 
 export async function getBoards() {
@@ -21,6 +21,20 @@ export async function createBoard(board: { title: string }) {
   }
   console.log("createBoard Supabase:", boards);
   console.log("createBoard Supabase error:", error);
+  return boards;
+}
+
+export async function deleteBoard(board: { id: string }) {
+  let { data: boards, error } = await supabase
+    .from("boards")
+    .delete()
+    .eq("id", board.id)
+    .select("*");
+  if (error) {
+    console.error("Error deleting board:", error);
+  }
+  console.log("deleteBoard Supabase:", boards);
+  console.log("deleteBoard Supabase error:", error);
   return boards;
 }
 
