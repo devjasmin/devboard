@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 import { useReducer, useState, useEffect } from "react";
 import type { Board } from "../../types";
-import { getBoards, savedBoards } from "../api";
+import { createBoard, getBoards } from "../api";
 
 function BoardOverview() {
   const [nameBoard, setNameBoard] = useState("");
@@ -67,6 +67,18 @@ function BoardOverview() {
     }
 
     return state;
+  }
+  async function handleCreateBoard(title: string) {
+    console.log("handleCreateBoard wurde aufgerufen:", title);
+    const newBoard = await createBoard({ title: title });
+    if (newBoard) {
+      dispatch({
+        type: "CREATE",
+        id: newBoard[0].id,
+        title: newBoard[0].title,
+      });
+    }
+    return newBoard;
   }
 
   function deleteBoard(id: string) {
@@ -125,13 +137,7 @@ function BoardOverview() {
               <DialogClose asChild>
                 <Button
                   variant={"default"}
-                  onClick={() =>
-                    dispatch({
-                      type: "CREATE",
-                      id: crypto.randomUUID(),
-                      title: nameBoard,
-                    })
-                  }
+                  onClick={() => handleCreateBoard(nameBoard)}
                 >
                   Erstellen
                 </Button>
