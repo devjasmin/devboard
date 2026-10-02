@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { useState, useReducer, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import type { Board, Task, TaskForm, TaskFormAction } from "../../types";
-import { getBoards, savedBoards } from "../api";
+import { getBoards, renameBoard, savedBoards } from "../api";
 
 function taskFormReducer(state: TaskForm, action: TaskFormAction) {
   if (action.type === "RESET") {
@@ -130,14 +130,21 @@ function BoardDetail() {
     setIsEditing(true);
   }
 
-  function handleOkBoardName() {
-    setBoardName(editBoardName);
-    setIsEditing(false);
-
-    const updatedBoards = boards.map((board) =>
-      board.id === id ? { ...board, title: editBoardName } : board,
-    );
-    savedBoards(updatedBoards);
+  async function handleOkBoardName() {
+    console.log("handleOkBoardName wurde aufgerufen:", id);
+    const renamedBoard = await renameBoard({
+      id: id!,
+      title: editBoardName,
+    });
+    if (renamedBoard && renamedBoard.length > 0) {
+      setBoardName(editBoardName);
+      setIsEditing(false);
+      setBoards((prevBoards) =>
+        prevBoards.map((board) =>
+          board.id === id ? { ...board, title: editBoardName } : board,
+        ),
+      );
+    }
   }
 
   function handleCancleBoardName() {

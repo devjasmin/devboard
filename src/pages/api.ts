@@ -38,6 +38,20 @@ export async function deleteBoard(board: { id: string }) {
   return boards;
 }
 
+export async function renameBoard(board: { id: string; title: string }) {
+  let { data: boards, error } = await supabase
+    .from("boards")
+    .update({ title: board.title })
+    .eq("id", board.id)
+    .select("*");
+  if (error) {
+    console.error("Error renaming board:", error);
+  }
+  console.log("renameBoard Supabase:", boards);
+  console.log("renameBoard Supabase error:", error);
+  return boards;
+}
+
 export function savedBoards(boards: Board[]) {
   localStorage.setItem("boards", JSON.stringify(boards));
 }

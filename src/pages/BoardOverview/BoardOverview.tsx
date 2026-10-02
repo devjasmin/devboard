@@ -42,6 +42,7 @@ function BoardOverview() {
     | {
         type: "RENAME";
         id: string;
+        title: string;
       }
     | {
         type: "LOAD";
@@ -61,7 +62,12 @@ function BoardOverview() {
     } else if (action.type === "DELETE") {
       return state.filter((board) => board.id !== action.id);
     } else if (action.type === "RENAME") {
-      return state.filter((board) => board.id !== action.id);
+      return state.map((board) => {
+        if (board.id !== action.id) {
+          return board;
+        }
+        return { ...board, title: action.title };
+      });
     } else if (action.type === "LOAD") {
       return action.boards;
     }
