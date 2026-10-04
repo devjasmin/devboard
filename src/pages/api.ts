@@ -1,4 +1,4 @@
-import type { Board, Profilname } from "../types";
+import type { Profilname } from "../types";
 import { supabase } from "../lib/db";
 
 export async function getBoards() {
@@ -6,8 +6,6 @@ export async function getBoards() {
   if (error) {
     console.error("Error fetching boards:", error);
   }
-  // console.log("getBoards Supabase:", boards);
-  // console.log("getBoards Supabase error:", error);
   return boards;
 }
 
@@ -19,8 +17,6 @@ export async function createBoard(board: { title: string }) {
   if (error) {
     console.error("Error creating board:", error);
   }
-  // console.log("createBoard Supabase:", boards);
-  // console.log("createBoard Supabase error:", error);
   return boards;
 }
 
@@ -33,8 +29,6 @@ export async function deleteBoard(board: { id: string }) {
   if (error) {
     console.error("Error deleting board:", error);
   }
-  // console.log("deleteBoard Supabase:", boards);
-  // console.log("deleteBoard Supabase error:", error);
   return boards;
 }
 
@@ -47,8 +41,6 @@ export async function renameBoard(board: { id: string; title: string }) {
   if (error) {
     console.error("Error renaming board:", error);
   }
-  // console.log("renameBoard Supabase:", boards);
-  // console.log("renameBoard Supabase error:", error);
   return boards;
 }
 // AB HIER GEHT ES MIT TASKS WEITER
@@ -60,7 +52,6 @@ export async function getTasks(boardId: string) {
   if (error) {
     console.error("Error fetching tasks:", error);
   }
-  console.log("TASKS aus Supabase:", tasks);
   return tasks;
 }
 
@@ -88,8 +79,6 @@ export async function createTask(task: {
   if (error) {
     console.error("Error creating task:", error);
   }
-  console.log("createTask Supabase:", tasks);
-  console.log("createTask Supabase error:", error);
   return tasks;
 }
 
@@ -115,8 +104,6 @@ export async function updateTask(task: {
   if (error) {
     console.error("Error updating task:", error);
   }
-  console.log("updateTask Supabase:", tasks);
-  console.log("updateTask Supabase error:", error);
   return tasks;
 }
 
@@ -129,13 +116,7 @@ export async function deleteTask(taskId: string) {
   if (error) {
     console.error("Error deleting task:", error);
   }
-  console.log("deleteTask Supabase:", tasks);
-  console.log("deleteTask Supabase error:", error);
   return tasks;
-}
-
-export function savedBoards(boards: Board[]) {
-  localStorage.setItem("boards", JSON.stringify(boards));
 }
 
 export function getProfilName() {
