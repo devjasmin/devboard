@@ -51,7 +51,7 @@ export async function renameBoard(board: { id: string; title: string }) {
   // console.log("renameBoard Supabase error:", error);
   return boards;
 }
-
+// AB HIER GEHT ES MIT TASKS WEITER
 export async function getTasks(boardId: string) {
   let { data: tasks, error } = await supabase
     .from("tasks")
@@ -60,6 +60,7 @@ export async function getTasks(boardId: string) {
   if (error) {
     console.error("Error fetching tasks:", error);
   }
+  console.log("TASKS aus Supabase:", tasks);
   return tasks;
 }
 
@@ -89,6 +90,47 @@ export async function createTask(task: {
   }
   console.log("createTask Supabase:", tasks);
   console.log("createTask Supabase error:", error);
+  return tasks;
+}
+
+export async function updateTask(task: {
+  id: string;
+  title: string;
+  description: string;
+  deadline: string;
+  assignedTo: string;
+  status: string;
+}) {
+  let { data: tasks, error } = await supabase
+    .from("tasks")
+    .update({
+      title: task.title,
+      description: task.description,
+      deadline: task.deadline,
+      assignedTo: task.assignedTo,
+      status: task.status,
+    })
+    .eq("id", task.id)
+    .select("*");
+  if (error) {
+    console.error("Error updating task:", error);
+  }
+  console.log("updateTask Supabase:", tasks);
+  console.log("updateTask Supabase error:", error);
+  return tasks;
+}
+
+export async function deleteTask(taskId: string) {
+  let { data: tasks, error } = await supabase
+    .from("tasks")
+    .delete()
+    .eq("id", taskId)
+    .select("*");
+  if (error) {
+    console.error("Error deleting task:", error);
+  }
+  console.log("deleteTask Supabase:", tasks);
+  console.log("deleteTask Supabase error:", error);
   return tasks;
 }
 

@@ -8,10 +8,11 @@ import { useParams } from "react-router-dom";
 import type { Board, Task, TaskForm, TaskFormAction } from "../../types";
 import {
   createTask,
+  updateTask,
+  deleteTask,
   getBoards,
   getTasks,
   renameBoard,
-  savedBoards,
 } from "../api";
 
 function taskFormReducer(state: TaskForm, action: TaskFormAction) {
@@ -77,49 +78,45 @@ function BoardDetail() {
     fetchTasks();
   }, [id]);
 
-  const changeTaskStatus = (taskId: string, newStatus: string) => {
-    setTasks((prevTasks) => {
-      const selectTask = prevTasks.find((task) => task.id === taskId);
+  const changeTaskStatus = async (taskId: string, newStatus: string) => {
+    const selectTask = tasks.find((task) => task.id === taskId);
 
-      if (
-        !(
-          (selectTask?.status === "todo" && newStatus === "in Bearbeitung") ||
-          (selectTask?.status === "in Bearbeitung" && newStatus === "erledigt")
-        )
-      ) {
-        return prevTasks;
-      }
+    if (
+      !(
+        (selectTask?.status === "todo" && newStatus === "in Bearbeitung") ||
+        (selectTask?.status === "in Bearbeitung" && newStatus === "erledigt")
+      )
+    )
+      return;
 
-      const updatedTasks = prevTasks.map((task) =>
-        task.id === taskId ? { ...task, status: newStatus } : task,
-      );
+    const updatedTask = { ...selectTask, status: newStatus };
+    const result = await updateTask(updatedTask);
 
-      const updatedBoards = boards.map((board) =>
-        board.id === id ? { ...board, tasks: updatedTasks } : board,
-      );
-
-      savedBoards(updatedBoards);
-      return updatedTasks;
-    });
+    if (result && result.length > 0) {
+      setTasks((prevTasks) => {
+        const updatedTasks = prevTasks.map((task) =>
+          task.id === taskId ? result[0] : task,
+        );
+        return updatedTasks;
+      });
+    }
   };
 
-  function handleUpdateTask(updateTasks: Task) {
-    setTasks((prevTasks) => {
-      const updatedTasks = prevTasks.map((task) =>
-        task.id === updateTasks.id ? updateTasks : task,
-      );
+  async function handleUpdateTask(updateTasks: Task) {
+    const updatedTask = await updateTask(updateTasks);
 
-      const updatedBoards = boards.map((board) =>
-        board.id === id ? { ...board, tasks: updatedTasks } : board,
-      );
+    if (updatedTask && updatedTask.length > 0) {
+      setTasks((prevTasks) => {
+        const updatedTasks = prevTasks.map((task) =>
+          task.id === updateTasks.id ? updatedTask[0] : task,
+        );
 
-      savedBoards(updatedBoards);
-      return updatedTasks;
-    });
+        return updatedTasks;
+      });
+    }
   }
 
   async function handleCreateTask(status: string) {
-    console.log("handleCreateTask wurde aufgerufen:", status);
     if (!taskForm.deadline) {
       console.error(
         "Deadline wurde nicht gesetzt. Task kann nicht erstellt werden",
@@ -134,8 +131,6 @@ function BoardDetail() {
       status: status,
       board_id: id!,
     });
-
-    console.log("newTask zurück von Supabase:", newTask);
 
     if (newTask && newTask.length > 0) {
       setTasks((prevTasks) => {
@@ -153,7 +148,6 @@ function BoardDetail() {
   }
 
   async function handleOkBoardName() {
-    console.log("handleOkBoardName wurde aufgerufen:", id);
     const renamedBoard = await renameBoard({
       id: id!,
       title: editBoardName,
@@ -169,20 +163,21 @@ function BoardDetail() {
     }
   }
 
-  function handleCancleBoardName() {
+  function handleCancelBoardName() {
     setEditBoardName(boardName);
     setIsEditing(false);
   }
 
-  function handleDeleteTask(taskId: string) {
-    setTasks((prevTasks) => {
-      const updatedTasks = prevTasks.filter((task) => task.id !== taskId);
-      const updatedBoards = boards.filter((board) =>
-        board.id === id ? { ...board, tasks: updatedTasks } : board,
-      );
-      savedBoards(updatedBoards);
-      return updatedTasks;
-    });
+  async function handleDeleteTask(taskId: string) {
+    const deletedTask = await deleteTask(taskId);
+
+    if (deletedTask && deletedTask.length > 0) {
+      setTasks((prevTasks) => {
+        const deletedTasks = prevTasks.filter((task) => task.id !== taskId);
+
+        return deletedTasks;
+      });
+    }
   }
 
   return (
@@ -216,7 +211,7 @@ function BoardDetail() {
               className="hover:text-destructive"
               size="icon"
               variant="ghost"
-              onClick={handleCancleBoardName}
+              onClick={handleCancelBoardName}
             >
               <X />
             </Button>
