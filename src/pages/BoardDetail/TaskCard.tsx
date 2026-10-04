@@ -6,7 +6,7 @@ import { UpdateTaskDialog } from "./UpdateTaskDialog";
 
 type CardProps = {
   task: Task;
-  handleDeleteTask: (id: number) => void;
+  handleDeleteTask: (id: string) => void;
   handleUpdateTask: (updateTask: Task) => void;
 };
 

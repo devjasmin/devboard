@@ -39,7 +39,7 @@ export function DeadlinePicker({ value, onValueChange }: DeadlinePickerProps) {
               setDate(selectedDate);
 
               if (selectedDate) {
-                onValueChange(format(selectedDate, "dd.MM.yyyy"));
+                onValueChange(format(selectedDate, "yyyy-MM-dd"));
               }
             }}
             defaultMonth={date}

@@ -18,11 +18,11 @@ function BoardDetailColumn({
   title: string;
   tasks: Task[];
   status: string;
-  changeTaskStatus: (id: number, newStatus: string) => void;
+  changeTaskStatus: (id: string, newStatus: string) => void;
   taskForm: TaskForm;
   dispatch: React.Dispatch<TaskFormAction>;
   handleCreateTask: (status: string) => void;
-  handleDeleteTask: (id: number) => void;
+  handleDeleteTask: (id: string) => void;
   handleUpdateTask: (updateTask: Task) => void;
 }) {
   return (

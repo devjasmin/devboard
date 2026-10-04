@@ -6,7 +6,13 @@ import { Input } from "@/components/ui/input";
 import { useState, useReducer, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import type { Board, Task, TaskForm, TaskFormAction } from "../../types";
-import { getBoards, renameBoard, savedBoards } from "../api";
+import {
+  createTask,
+  getBoards,
+  getTasks,
+  renameBoard,
+  savedBoards,
+} from "../api";
 
 function taskFormReducer(state: TaskForm, action: TaskFormAction) {
   if (action.type === "RESET") {
@@ -45,9 +51,9 @@ function BoardDetail() {
   const { id } = useParams();
 
   const selectBoard = boards.find((board) => board.id === id);
-  console.log("id aus URL:", id);
-  console.log("boards aus supabase:", boards);
-  console.log("gefundes Board:", selectBoard);
+  // console.log("id aus URL:", id);
+  // console.log("boards aus supabase:", boards);
+  // console.log("gefundes Board:", selectBoard);
 
   useEffect(() => {
     if (selectBoard) {
@@ -59,9 +65,19 @@ function BoardDetail() {
   const [editBoardName, setEditBoardName] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  const [tasks, setTasks] = useState<Task[]>(selectBoard?.tasks || []);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-  const changeTaskStatus = (taskId: number, newStatus: string) => {
+  useEffect(() => {
+    const fetchTasks = async () => {
+      if (id) {
+        const tasks = await getTasks(id);
+        setTasks(tasks ?? []);
+      }
+    };
+    fetchTasks();
+  }, [id]);
+
+  const changeTaskStatus = (taskId: string, newStatus: string) => {
     setTasks((prevTasks) => {
       const selectTask = prevTasks.find((task) => task.id === taskId);
 
@@ -102,25 +118,31 @@ function BoardDetail() {
     });
   }
 
-  function handleCreateTask(status: string) {
-    const newTask: Task = {
-      id: Date.now(),
+  async function handleCreateTask(status: string) {
+    console.log("handleCreateTask wurde aufgerufen:", status);
+    if (!taskForm.deadline) {
+      console.error(
+        "Deadline wurde nicht gesetzt. Task kann nicht erstellt werden",
+      );
+      return;
+    }
+    const newTask = await createTask({
       title: taskForm.title,
       description: taskForm.description,
       assignedTo: taskForm.assignedTo,
       deadline: taskForm.deadline,
       status: status,
-    };
-    setTasks((prevTasks) => {
-      const updatedTasks = [...prevTasks, newTask];
-
-      const updatedBoards = boards.map((board) =>
-        board.id === id ? { ...board, tasks: updatedTasks } : board,
-      );
-
-      savedBoards(updatedBoards);
-      return updatedTasks;
+      board_id: id!,
     });
+
+    console.log("newTask zurück von Supabase:", newTask);
+
+    if (newTask && newTask.length > 0) {
+      setTasks((prevTasks) => {
+        const updatedTasks = [...prevTasks, newTask[0]];
+        return updatedTasks;
+      });
+    }
 
     dispatch({ type: "RESET" });
   }
@@ -152,7 +174,7 @@ function BoardDetail() {
     setIsEditing(false);
   }
 
-  function handleDeleteTask(taskId: number) {
+  function handleDeleteTask(taskId: string) {
     setTasks((prevTasks) => {
       const updatedTasks = prevTasks.filter((task) => task.id !== taskId);
       const updatedBoards = boards.filter((board) =>

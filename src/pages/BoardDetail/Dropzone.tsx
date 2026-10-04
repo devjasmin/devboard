@@ -2,7 +2,7 @@ import { useState } from "react";
 
 type DropzoneProps = {
   status: string;
-  changeTaskStatus: (id: number, newStatus: string) => void;
+  changeTaskStatus: (id: string, newStatus: string) => void;
 };
 
 const Dropzone = (props: DropzoneProps) => {
@@ -17,7 +17,7 @@ const Dropzone = (props: DropzoneProps) => {
   };
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    const id = Number(e.dataTransfer.getData("id"));
+    const id = e.dataTransfer.getData("id");
 
     props.changeTaskStatus(id, props.status);
 

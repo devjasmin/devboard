@@ -106,7 +106,10 @@ export function CreateTaskDialog({
           <DialogClose asChild>
             <Button
               variant={"default"}
-              onClick={() => handleCreateTask(status)}
+              onClick={() => {
+                console.log("ERSTELLEN GEDRÜCKT:", status);
+                handleCreateTask(status);
+              }}
             >
               Erstellen
             </Button>

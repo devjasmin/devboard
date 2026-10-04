@@ -6,8 +6,8 @@ export async function getBoards() {
   if (error) {
     console.error("Error fetching boards:", error);
   }
-  console.log("getBoards Supabase:", boards);
-  console.log("getBoards Supabase error:", error);
+  // console.log("getBoards Supabase:", boards);
+  // console.log("getBoards Supabase error:", error);
   return boards;
 }
 
@@ -19,8 +19,8 @@ export async function createBoard(board: { title: string }) {
   if (error) {
     console.error("Error creating board:", error);
   }
-  console.log("createBoard Supabase:", boards);
-  console.log("createBoard Supabase error:", error);
+  // console.log("createBoard Supabase:", boards);
+  // console.log("createBoard Supabase error:", error);
   return boards;
 }
 
@@ -33,8 +33,8 @@ export async function deleteBoard(board: { id: string }) {
   if (error) {
     console.error("Error deleting board:", error);
   }
-  console.log("deleteBoard Supabase:", boards);
-  console.log("deleteBoard Supabase error:", error);
+  // console.log("deleteBoard Supabase:", boards);
+  // console.log("deleteBoard Supabase error:", error);
   return boards;
 }
 
@@ -47,9 +47,49 @@ export async function renameBoard(board: { id: string; title: string }) {
   if (error) {
     console.error("Error renaming board:", error);
   }
-  console.log("renameBoard Supabase:", boards);
-  console.log("renameBoard Supabase error:", error);
+  // console.log("renameBoard Supabase:", boards);
+  // console.log("renameBoard Supabase error:", error);
   return boards;
+}
+
+export async function getTasks(boardId: string) {
+  let { data: tasks, error } = await supabase
+    .from("tasks")
+    .select("*")
+    .eq("board_id", boardId);
+  if (error) {
+    console.error("Error fetching tasks:", error);
+  }
+  return tasks;
+}
+
+export async function createTask(task: {
+  title: string;
+  description: string;
+  deadline: string;
+  assignedTo: string;
+  status: string;
+  board_id: string;
+}) {
+  let { data: tasks, error } = await supabase
+    .from("tasks")
+    .insert([
+      {
+        title: task.title,
+        description: task.description,
+        deadline: task.deadline,
+        assignedTo: task.assignedTo,
+        status: task.status,
+        board_id: task.board_id,
+      },
+    ])
+    .select("*");
+  if (error) {
+    console.error("Error creating task:", error);
+  }
+  console.log("createTask Supabase:", tasks);
+  console.log("createTask Supabase error:", error);
+  return tasks;
 }
 
 export function savedBoards(boards: Board[]) {
