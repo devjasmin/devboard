@@ -26,4 +26,4 @@ Ein Kanban-Board zur übersichtlichen Verwaltung von Aufgaben innerhalb verschie
 
 ## Entwicklungsstand
 
-Das DevBoard befindet sich aktuell in Entwicklung und wird laufend um weitere Funktionen ergänzt.
+Das DevBoard ist abgeschlossen. 
